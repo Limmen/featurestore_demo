@@ -3,9 +3,9 @@ package limmen.github.com.feature_engineering_spark.featuregroup
 import org.apache.log4j.{ Level, LogManager, Logger }
 
 /**
-  * Contains logic for computing the pep_lookup featuregroup
+  * Contains logic for computing the alert_features featuregroup
   */
-object PepLookup {
+object AlertFeatures {
 
   /**
     * Computes the featuregroup

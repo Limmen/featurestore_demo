@@ -49,29 +49,28 @@ object Main {
     log.info(s"Cluster settings: \n" + clusterStr)
 
     import spark.implicits._
-
     conf.featuregroup() match {
-      case "customer_type_lookup" => featuregroup.CustomerTypeLookup.computeFeatures(conf.input(), conf.featuregroup(), conf.version(), conf.partitions())
-      case "gender_lookup" => featuregroup.GenderLookup.computeFeatures(conf.input(), conf.featuregroup(), conf.version(), conf.partitions())
-      case "pep_lookup" => featuregroup.PepLookup.computeFeatures(conf.input(), conf.featuregroup(), conf.version(), conf.partitions())
-      case "trx_type_lookup" => featuregroup.TrxTypeLookup.computeFeatures(conf.input(), conf.featuregroup(), conf.version(), conf.partitions())
-      case "country_lookup" => featuregroup.CountryLookup.computeFeatures(conf.input(), conf.featuregroup(), conf.version(), conf.partitions())
-      case "industry_sector_lookup" => featuregroup.IndustrySectorLookup.computeFeatures(conf.input(), conf.featuregroup(), conf.version(), conf.partitions())
-      case "alert_type_lookup" => featuregroup.AlertTypeLookup.computeFeatures(conf.input(), conf.featuregroup(), conf.version(), conf.partitions())
-      case "rule_name_lookup" => featuregroup.RuleNameLookup.computeFeatures(conf.input(), conf.featuregroup(), conf.version(), conf.partitions())
-      case "web_address_lookup" => featuregroup.WebAddressLookup.computeFeatures(conf.input(), conf.featuregroup(), conf.version(), conf.partitions())
-      case "browser_action_lookup" => featuregroup.BrowserActionLookup.computeFeatures(conf.input(), conf.featuregroup(), conf.version(), conf.partitions())
-      case "demographic_features" => featuregroup.DemographicFeatures.computeFeatures(conf.input(), conf.featuregroup(), conf.version(), conf.partitions())
-      case "trx_graph_edge_list" => featuregroup.TrxGraphEdgeList.computeFeatures(conf.input(), conf.featuregroup(), conf.version(), conf.partitions())
-      case "customer_node_embeddings" => featuregroup.CustomerNodeEmbeddings.computeFeatures(conf.input(), conf.featuregroup(), conf.version(), conf.partitions())
-      case "trx_graph_summary_features" => featuregroup.TrxSummaryFeatures.computeFeatures(conf.input(), conf.featuregroup(), conf.version(), conf.partitions())
-      case "trx_features" => featuregroup.TrxFeatures.computeFeatures(conf.input(), conf.featuregroup(), conf.version(), conf.partitions())
-      case "trx_summary_features" => featuregroup.TrxSummaryFeatures.computeFeatures(conf.input(), conf.featuregroup(), conf.version(), conf.partitions())
-      case "hipo_table_features" => featuregroup.HipoTableFeatures.computeFeatures(conf.input(), conf.featuregroup(), conf.version(), conf.partitions())
-      case "alert_features" => featuregroup.AlertFeatures.computeFeatures(conf.input(), conf.featuregroup(), conf.version(), conf.partitions())
-      case "police_report_features" => featuregroup.PoliceReportFeatures.computeFeatures(conf.input(), conf.featuregroup(), conf.version(), conf.partitions())
-      case "web_logs_features" => featuregroup.WebLogsFeatures.computeFeatures(conf.input(), conf.featuregroup(), conf.version(), conf.partitions())
-      case "hipo_features" => featuregroup.HiPoFeatures.computeFeatures(conf.input(), conf.featuregroup(), conf.version(), conf.partitions())
+      case "customer_type_lookup" => featuregroup.CustomerTypeLookup.computeFeatures(conf.input(), conf.featuregroup(), conf.version(), conf.partitions(), log)
+      case "gender_lookup" => featuregroup.GenderLookup.computeFeatures(conf.input(), conf.featuregroup(), conf.version(), conf.partitions(), log)
+      case "pep_lookup" => featuregroup.PepLookup.computeFeatures(conf.input(), conf.featuregroup(), conf.version(), conf.partitions(), log)
+      case "trx_type_lookup" => featuregroup.TrxTypeLookup.computeFeatures(conf.input(), conf.featuregroup(), conf.version(), conf.partitions(), log)
+      case "country_lookup" => featuregroup.CountryLookup.computeFeatures(conf.input(), conf.featuregroup(), conf.version(), conf.partitions(), log)
+      case "industry_sector_lookup" => featuregroup.IndustrySectorLookup.computeFeatures(conf.input(), conf.featuregroup(), conf.version(), conf.partitions(), log)
+      case "alert_type_lookup" => featuregroup.AlertTypeLookup.computeFeatures(conf.input(), conf.featuregroup(), conf.version(), conf.partitions(), log)
+      case "rule_name_lookup" => featuregroup.RuleNameLookup.computeFeatures(conf.input(), conf.featuregroup(), conf.version(), conf.partitions(), log)
+      case "web_address_lookup" => featuregroup.WebAddressLookup.computeFeatures(conf.input(), conf.featuregroup(), conf.version(), conf.partitions(), log)
+      case "browser_action_lookup" => featuregroup.BrowserActionLookup.computeFeatures(conf.input(), conf.featuregroup(), conf.version(), conf.partitions(), log)
+      case "demographic_features" => featuregroup.DemographicFeatures.computeFeatures(conf.input(), conf.featuregroup(), conf.version(), conf.partitions(), log)
+      case "trx_graph_edge_list" => featuregroup.TrxGraphEdgeList.computeFeatures(conf.input(), conf.featuregroup(), conf.version(), conf.partitions(), log)
+      case "customer_node_embeddings" => featuregroup.CustomerNodeEmbeddings.computeFeatures(conf.input(), conf.featuregroup(), conf.version(), conf.partitions(), log)
+      case "trx_graph_summary_features" => featuregroup.TrxSummaryFeatures.computeFeatures(conf.input(), conf.featuregroup(), conf.version(), conf.partitions(), log)
+      case "trx_features" => featuregroup.TrxFeatures.computeFeatures(conf.input(), conf.featuregroup(), conf.version(), conf.partitions(), log)
+      case "trx_summary_features" => featuregroup.TrxSummaryFeatures.computeFeatures(conf.input(), conf.featuregroup(), conf.version(), conf.partitions(), log)
+      case "hipo_table_features" => featuregroup.HipoTableFeatures.computeFeatures(conf.input(), conf.featuregroup(), conf.version(), conf.partitions(), log)
+      case "alert_features" => featuregroup.AlertFeatures.computeFeatures(conf.input(), conf.featuregroup(), conf.version(), conf.partitions(), log)
+      case "police_report_features" => featuregroup.PoliceReportFeatures.computeFeatures(conf.input(), conf.featuregroup(), conf.version(), conf.partitions(), log)
+      case "web_logs_features" => featuregroup.WebLogsFeatures.computeFeatures(conf.input(), conf.featuregroup(), conf.version(), conf.partitions(), log)
+      case "hipo_features" => featuregroup.HiPoFeatures.computeFeatures(conf.input(), conf.featuregroup(), conf.version(), conf.partitions(), log)
     }
     log.info("Shutting down spark job")
     spark.close
@@ -80,7 +79,7 @@ object Main {
   /**
    * Hard coded settings for local spark training
    *
-   * @return spark configuration
+   * @return spark configurationh
    */
   def localSparkSetup(): SparkConf = {
     new SparkConf().setAppName("feature_engineering_spark").setMaster("local[*]")
