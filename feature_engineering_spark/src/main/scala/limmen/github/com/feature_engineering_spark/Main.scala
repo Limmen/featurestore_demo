@@ -5,6 +5,7 @@ import org.apache.spark.rdd.RDD
 import org.apache.spark.sql.{ Row, SparkSession }
 import org.apache.spark.{ SparkConf, SparkContext }
 import org.rogach.scallop.ScallopConf
+import limmen.github.com.feature_engineering_spark._
 
 /**
  * Parser of command-line arguments
@@ -50,16 +51,16 @@ object Main {
 
     import spark.implicits._
     conf.featuregroup() match {
-      case "customer_type_lookup" => featuregroup.CustomerTypeLookup.computeFeatures(conf.input(), conf.featuregroup(), conf.version(), conf.partitions(), log)
-      case "gender_lookup" => featuregroup.GenderLookup.computeFeatures(conf.input(), conf.featuregroup(), conf.version(), conf.partitions(), log)
-      case "pep_lookup" => featuregroup.PepLookup.computeFeatures(conf.input(), conf.featuregroup(), conf.version(), conf.partitions(), log)
-      case "trx_type_lookup" => featuregroup.TrxTypeLookup.computeFeatures(conf.input(), conf.featuregroup(), conf.version(), conf.partitions(), log)
-      case "country_lookup" => featuregroup.CountryLookup.computeFeatures(conf.input(), conf.featuregroup(), conf.version(), conf.partitions(), log)
-      case "industry_sector_lookup" => featuregroup.IndustrySectorLookup.computeFeatures(conf.input(), conf.featuregroup(), conf.version(), conf.partitions(), log)
-      case "alert_type_lookup" => featuregroup.AlertTypeLookup.computeFeatures(conf.input(), conf.featuregroup(), conf.version(), conf.partitions(), log)
-      case "rule_name_lookup" => featuregroup.RuleNameLookup.computeFeatures(conf.input(), conf.featuregroup(), conf.version(), conf.partitions(), log)
-      case "web_address_lookup" => featuregroup.WebAddressLookup.computeFeatures(conf.input(), conf.featuregroup(), conf.version(), conf.partitions(), log)
-      case "browser_action_lookup" => featuregroup.BrowserActionLookup.computeFeatures(conf.input(), conf.featuregroup(), conf.version(), conf.partitions(), log)
+      case "customer_type_lookup" => featuregroup.CustomerTypeLookup.computeFeatures(spark, conf.input(), conf.featuregroup(), conf.version(), conf.partitions(), log)
+      case "gender_lookup" => featuregroup.GenderLookup.computeFeatures(spark, conf.input(), conf.featuregroup(), conf.version(), conf.partitions(), log)
+      case "pep_lookup" => featuregroup.PepLookup.computeFeatures(spark, conf.input(), conf.featuregroup(), conf.version(), conf.partitions(), log)
+      case "trx_type_lookup" => featuregroup.TrxTypeLookup.computeFeatures(spark, conf.input(), conf.featuregroup(), conf.version(), conf.partitions(), log)
+      case "country_lookup" => featuregroup.CountryLookup.computeFeatures(spark, conf.input(), conf.featuregroup(), conf.version(), conf.partitions(), log)
+      case "industry_sector_lookup" => featuregroup.IndustrySectorLookup.computeFeatures(spark, conf.input(), conf.featuregroup(), conf.version(), conf.partitions(), log)
+      case "alert_type_lookup" => featuregroup.AlertTypeLookup.computeFeatures(spark, conf.input(), conf.featuregroup(), conf.version(), conf.partitions(), log)
+      case "rule_name_lookup" => featuregroup.RuleNameLookup.computeFeatures(spark, conf.input(), conf.featuregroup(), conf.version(), conf.partitions(), log)
+      case "web_address_lookup" => featuregroup.WebAddressLookup.computeFeatures(spark, conf.input(), conf.featuregroup(), conf.version(), conf.partitions(), log)
+      case "browser_action_lookup" => featuregroup.BrowserActionLookup.computeFeatures(spark, conf.input(), conf.featuregroup(), conf.version(), conf.partitions(), log)
       case "demographic_features" => featuregroup.DemographicFeatures.computeFeatures(conf.input(), conf.featuregroup(), conf.version(), conf.partitions(), log)
       case "trx_graph_edge_list" => featuregroup.TrxGraphEdgeList.computeFeatures(conf.input(), conf.featuregroup(), conf.version(), conf.partitions(), log)
       case "customer_node_embeddings" => featuregroup.CustomerNodeEmbeddings.computeFeatures(conf.input(), conf.featuregroup(), conf.version(), conf.partitions(), log)
