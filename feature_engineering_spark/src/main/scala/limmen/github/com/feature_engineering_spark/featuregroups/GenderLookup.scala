@@ -3,6 +3,7 @@ package limmen.github.com.feature_engineering_spark.featuregroup
 import org.apache.log4j.{ Level, LogManager, Logger }
 import org.apache.spark.sql.SparkSession
 import org.apache.spark.sql.functions.monotonically_increasing_id
+import io.hops.util.Hops
 
 /**
  * Contains logic for computing the gender_lookup featuregroup
@@ -26,5 +27,10 @@ object GenderLookup {
     val genderWithIndex = genders.withColumn("id", monotonically_increasing_id())
     log.info("Extracted gender types and mapped to ids:")
     log.info(genderWithIndex.show(5))
+    log.info("Schema: \n" + genderWithIndex.printSchema)
+    val featurestore = Hops.getProjectFeaturestore
+    log.info(s"Inserting into featuregroup $featuregroupName version $version in featurestore $featurestore")
+    Hops.insertIntoFeaturegroup(genderWithIndex, spark, featuregroupName, featurestore, version)
+    log.info(s"Insertion into featuregroup $featuregroupName complete")
   }
 }

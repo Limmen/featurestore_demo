@@ -3,6 +3,7 @@ package limmen.github.com.feature_engineering_spark.featuregroup
 import org.apache.log4j.{ Level, LogManager, Logger }
 import org.apache.spark.sql.SparkSession
 import org.apache.spark.sql.functions.monotonically_increasing_id
+import io.hops.util.Hops
 
 /**
  * Contains logic for computing the browser_action_lookup featuregroup
@@ -26,5 +27,10 @@ object BrowserActionLookup {
     val webActionsWithIndex = webActions.withColumn("id", monotonically_increasing_id())
     log.info("Extracted web-action types and mapped to ids:")
     log.info(webActionsWithIndex.show(5))
+    log.info("Schema: \n" + webActionsWithIndex.printSchema)
+    val featurestore = Hops.getProjectFeaturestore
+    log.info(s"Inserting into featuregroup $featuregroupName version $version in featurestore $featurestore")
+    Hops.insertIntoFeaturegroup(webActionsWithIndex, spark, featuregroupName, featurestore, version)
+    log.info(s"Insertion into featuregroup $featuregroupName complete")
   }
 }

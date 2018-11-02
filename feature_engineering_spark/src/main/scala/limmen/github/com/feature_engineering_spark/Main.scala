@@ -42,7 +42,7 @@ object Main {
       sparkConf = localSparkSetup()
     }
 
-    val spark = SparkSession.builder().config(sparkConf).getOrCreate();
+    val spark = SparkSession.builder().config(sparkConf).enableHiveSupport().getOrCreate();
 
     val sc = spark.sparkContext
 

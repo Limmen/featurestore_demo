@@ -3,6 +3,7 @@ package limmen.github.com.feature_engineering_spark.featuregroup
 import org.apache.log4j.{ Level, LogManager, Logger }
 import org.apache.spark.sql.SparkSession
 import org.apache.spark.sql.functions.monotonically_increasing_id
+import io.hops.util.Hops
 
 /**
  * Contains logic for computing the web_address_lookup featuregroup
@@ -26,5 +27,10 @@ object WebAddressLookup {
     val webAddressesWithIndex = webAddresses.withColumn("id", monotonically_increasing_id())
     log.info("Extracted web-address types and mapped to ids:")
     log.info(webAddressesWithIndex.show(5))
+    log.info("Schema: \n" + webAddressesWithIndex.printSchema)
+    val featurestore = Hops.getProjectFeaturestore
+    log.info(s"Inserting into featuregroup $featuregroupName version $version in featurestore $featurestore")
+    Hops.insertIntoFeaturegroup(webAddressesWithIndex, spark, featuregroupName, featurestore, version)
+    log.info(s"Insertion into featuregroup $featuregroupName complete")
   }
 }

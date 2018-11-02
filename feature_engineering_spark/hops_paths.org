@@ -1,0 +1,123 @@
+* customer_type_lookup
+** Job name
+customer_type_lookup_job
+** Featuregroup name
+customer_type_lookup
+** Input
+hdfs:///Projects/test/sample_data/kyc.csv
+**  Description
+*** Table
+lookup table for id to customer type, used when converting from numeric to categrorical representation and vice verse
+*** id
+The numeric id of the customer_type
+*** customer_type
+The categorical customer_type
+** Parameters
+--input "hdfs:///Projects/test2/sample_data/kyc.csv" --partitions 1 --version 1 --cluster --featuregroup "customer_type_lookup"
+** Schema
+
+ |-- customer_type: string (nullable = true)
+ |-- id: long (nullable = false)
+
+ (long translates to BIGINT in HiveQL)
+
+CREATE TABLE `test`( `id` bigint COMMENT 'test', `customer_type` string COMMENT 'test') COMMENT 'test' STORED AS ORC
+* pep_lookup
+** Job name
+pep_lookup_job
+** Featuregroup name
+pep_lookup
+** Input
+hdfs:///Projects/test/sample_data/kyc.csv
+** Description
+*** Table
+lookup table for id to pep type, used when converting from numeric to categrorical representation and vice verse
+*** id
+The numeric id of the pep_lookup
+*** pep
+The categorical pep
+** Parameters
+--input "hdfs:///Projects/test2/sample_data/kyc.csv" --partitions 1 --version 1 --cluster --featuregroup "pep_lookup"
+** Schema
+
+ |-- pep: boolean (nullable = true)
+ |-- id: long (nullable = false)
+
+ (long translates to BIGINT in HiveQL)
+
+CREATE TABLE `pep_lookup_1`( `id` bigint COMMENT 'The numeric id of the pep_lookup', `pep` boolean COMMENT 'The categorical pep') COMMENT 'lookup table for id to pep type, used when converting from numeric to categrorical representation and vice verse' ROW FORMAT SERDE 'org.apache.hadoop.hive.ql.io.orc.OrcSerde' STORED AS INPUTFORMAT 'org.apache.hadoop.hive.ql.io.orc.OrcInputFormat' OUTPUTFORMAT 'org.apache.hadoop.hive.ql.io.orc.OrcOutputFormat' LOCATION 'hdfs://10.0.2.15:8020/apps/hive/warehouse/test2_featurestore.db/pep_lookup_1' TBLPROPERTIES ( 'transient_lastDdlTime'='1541142984')
+* gender_lookup
+** Job name
+gender_lookup_job
+** Featuregroup name
+gender_lookup
+** Input
+hdfs:///Projects/test/sample_data/kyc.csv
+** Description
+*** Table
+lookup table for id to gender type, used when converting from numeric to categrorical representation and vice verse
+*** id
+The numeric id of the gender
+*** gender
+The categorical gender
+** Parameters
+--input "hdfs:///Projects/test2/sample_data/kyc.csv" --partitions 1 --version 1 --cluster --featuregroup "gender_lookup"
+** Schema
+
+ |-- gender: string (nullable = true)
+ |-- id: long (nullable = false)
+
+
+ (long translates to BIGINT in HiveQL)
+
+CREATE TABLE `gender_lookup_1`( `id` bigint COMMENT 'The numeric id of the gender', `gender` string COMMENT 'The categorical gender') COMMENT 'lookup table for id to gender type, used when converting from numeric to categrorical representation and vice verse' ROW FORMAT SERDE 'org.apache.hadoop.hive.ql.io.orc.OrcSerde' STORED AS INPUTFORMAT 'org.apache.hadoop.hive.ql.io.orc.OrcInputFormat' OUTPUTFORMAT 'org.apache.hadoop.hive.ql.io.orc.OrcOutputFormat' LOCATION 'hdfs://10.0.2.15:8020/apps/hive/warehouse/test2_featurestore.db/gender_lookup_1' TBLPROPERTIES ( 'STATS_GENERATED_VIA_STATS_TASK'='true', 'transient_lastDdlTime'='1541143924')
+* trx_type_lookup
+** Job name
+trx_type_lookup_job
+** Featuregroup name
+trx_type_lookup
+** Input
+hdfs:///Projects/test/sample_data/trx.csv
+** Description
+*** Table
+lookup table for id to trx_type type, used when converting from numeric to categorical representation and vice verse
+*** id
+The numeric id of the transaction type
+*** trx_type
+The categorical transaction type
+** Parameters
+--input "hdfs:///Projects/test2/sample_data/trx.csv" --partitions 1 --version 1 --cluster --featuregroup "trx_type_lookup"
+** Schema
+
+ |-- trx_type: string (nullable = true)
+ |-- id: long (nullable = false)
+
+
+ (long translates to BIGINT in HiveQL)
+
+CREATE TABLE `trx_type_lookup_1`( `id` bigint COMMENT 'The numeric id of the transaction type', `trx_type` string COMMENT 'The categorical transaction type') COMMENT 'lookup table for id to trx_type type, used when converting from numeric to categorical representation and vice verse' ROW FORMAT SERDE 'org.apache.hadoop.hive.ql.io.orc.OrcSerde' STORED AS INPUTFORMAT 'org.apache.hadoop.hive.ql.io.orc.OrcInputFormat' OUTPUTFORMAT 'org.apache.hadoop.hive.ql.io.orc.OrcOutputFormat' LOCATION 'hdfs://10.0.2.15:8020/apps/hive/warehouse/test2_featurestore.db/trx_type_lookup_1' TBLPROPERTIES ( 'transient_lastDdlTime'='1541144347')
+
+* country_lookup
+** Job name
+country_lookup_job
+** Featuregroup name
+country_lookup
+** Input
+hdfs:///Projects/test/sample_data/trx.csv
+** Description
+*** Table
+lookup table for id to country, used when converting from numeric to categorical representation and vice verse
+*** id
+The numeric id of the country
+*** trx_country
+The categorical country
+** Parameters
+--input "hdfs:///Projects/test2/sample_data/trx.csv" --partitions 1 --version 1 --cluster --featuregroup "country_lookup"
+** Schema
+
+ |-- trx_country: string (nullable = true)
+ |-- id: long (nullable = false)
+
+ (long translates to BIGINT in HiveQL)
+
+REATE TABLE `country_lookup_1`( `id` bigint COMMENT 'The numeric id of the country', `trx_country` string COMMENT 'The categorical country') COMMENT 'lookup table for id to country, used when converting from numeric to categorical representation and vice verse' ROW FORMAT SERDE 'org.apache.hadoop.hive.ql.io.orc.OrcSerde' STORED AS INPUTFORMAT 'org.apache.hadoop.hive.ql.io.orc.OrcInputFormat' OUTPUTFORMAT 'org.apache.hadoop.hive.ql.io.orc.OrcOutputFormat' LOCATION 'hdfs://10.0.2.15:8020/apps/hive/warehouse/test2_featurestore.db/country_lookup_1' TBLPROPERTIES ( 'transient_lastDdlTime'='1541145577')
