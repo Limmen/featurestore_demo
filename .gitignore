@@ -23,3 +23,7 @@ project/plugins/project/
 
 *.ipynb_checkpoints
 data/*
+
+*.log
+metastore_db
+spark-warehouse

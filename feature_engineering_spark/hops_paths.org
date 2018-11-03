@@ -5,7 +5,7 @@ customer_type_lookup_job
 customer_type_lookup
 ** Input
 hdfs:///Projects/test/sample_data/kyc.csv
-**  Description
+** Description
 *** Table
 lookup table for id to customer type, used when converting from numeric to categrorical representation and vice verse
 *** id
@@ -121,3 +121,346 @@ The categorical country
  (long translates to BIGINT in HiveQL)
 
 REATE TABLE `country_lookup_1`( `id` bigint COMMENT 'The numeric id of the country', `trx_country` string COMMENT 'The categorical country') COMMENT 'lookup table for id to country, used when converting from numeric to categorical representation and vice verse' ROW FORMAT SERDE 'org.apache.hadoop.hive.ql.io.orc.OrcSerde' STORED AS INPUTFORMAT 'org.apache.hadoop.hive.ql.io.orc.OrcInputFormat' OUTPUTFORMAT 'org.apache.hadoop.hive.ql.io.orc.OrcOutputFormat' LOCATION 'hdfs://10.0.2.15:8020/apps/hive/warehouse/test2_featurestore.db/country_lookup_1' TBLPROPERTIES ( 'transient_lastDdlTime'='1541145577')
+* industry_sector_lookup
+** Job name
+industry_sector_lookup_job
+** Featuregroup name
+industry_sector_lookup
+** Input
+hdfs:///Projects/test/sample_data/hipo.csv
+** Description
+*** Table
+lookup table for id to industry_sector, used when converting from numeric to categorical representation and vice verse
+*** id
+The numeric id of the industry_sector
+*** industry_sector
+The categorical industry_sector
+** Parameters
+--input "hdfs:///Projects/test2/sample_data/hipo.csv" --partitions 1 --version 1 --cluster --featuregroup "industry_sector_lookup"
+** Schema
+
+ |-- trx_country: string (nullable = true)
+ |-- id: long (nullable = false)
+
+ (long translates to BIGINT in HiveQL)
+
+REATE TABLE `country_lookup_1`( `id` bigint COMMENT 'The numeric id of the country', `trx_country` string COMMENT 'The categorical country') COMMENT 'lookup table for id to country, used when converting from numeric to categorical representation and vice verse' ROW FORMAT SERDE 'org.apache.hadoop.hive.ql.io.orc.OrcSerde' STORED AS INPUTFORMAT 'org.apache.hadoop.hive.ql.io.orc.OrcInputFormat' OUTPUTFORMAT 'org.apache.hadoop.hive.ql.io.orc.OrcOutputFormat' LOCATION 'hdfs://10.0.2.15:8020/apps/hive/warehouse/test2_featurestore.db/country_lookup_1' TBLPROPERTIES ( 'transient_lastDdlTime'='1541145577')
+* alert_type_lookup
+** Job name
+alert_type_lookup_job
+** Featuregroup name
+alert_type_lookup
+** Input
+hdfs:///Projects/test/sample_data/alerts.csv
+** Description
+*** Table
+lookup table for id to alert_type, used when converting from numeric to categorical representation and vice verse
+*** id
+The numeric id of the alert_type
+*** alert_type
+The categorical alert_type
+** Parameters
+--input "hdfs:///Projects/test2/sample_data/alerts.csv" --partitions 1 --version 1 --cluster --featuregroup "alert_type_lookup"
+** Schema
+
+ |-- trx_country: string (nullable = true)
+ |-- id: long (nullable = false)
+
+ (long translates to BIGINT in HiveQL)
+
+REATE TABLE `country_lookup_1`( `id` bigint COMMENT 'The numeric id of the country', `trx_country` string COMMENT 'The categorical country') COMMENT 'lookup table for id to country, used when converting from numeric to categorical representation and vice verse' ROW FORMAT SERDE 'org.apache.hadoop.hive.ql.io.orc.OrcSerde' STORED AS INPUTFORMAT 'org.apache.hadoop.hive.ql.io.orc.OrcInputFormat' OUTPUTFORMAT 'org.apache.hadoop.hive.ql.io.orc.OrcOutputFormat' LOCATION 'hdfs://10.0.2.15:8020/apps/hive/warehouse/test2_featurestore.db/country_lookup_1' TBLPROPERTIES ( 'transient_lastDdlTime'='1541145577')
+
+* rule_name_lookup
+** Job name
+rule_name_lookup_job
+** Featuregroup name
+rule_name_lookup
+** Input
+hdfs:///Projects/test/sample_data/alerts.csv
+** Description
+*** Table
+lookup table for id to rule_name of an alert, used when converting from numeric to categorical representation and vice verse
+*** id
+The numeric id of the rule_name
+*** rule_name
+The categorical rule_name
+** Parameters
+--input "hdfs:///Projects/test2/sample_data/alerts.csv" --partitions 1 --version 1 --cluster --featuregroup "rule_name_lookup"
+** Schema
+
+ |-- trx_country: string (nullable = true)
+ |-- id: long (nullable = false)
+
+ (long translates to BIGINT in HiveQL)
+
+REATE TABLE `country_lookup_1`( `id` bigint COMMENT 'The numeric id of the country', `trx_country` string COMMENT 'The categorical country') COMMENT 'lookup table for id to country, used when converting from numeric to categorical representation and vice verse' ROW FORMAT SERDE 'org.apache.hadoop.hive.ql.io.orc.OrcSerde' STORED AS INPUTFORMAT 'org.apache.hadoop.hive.ql.io.orc.OrcInputFormat' OUTPUTFORMAT 'org.apache.hadoop.hive.ql.io.orc.OrcOutputFormat' LOCATION 'hdfs://10.0.2.15:8020/apps/hive/warehouse/test2_featurestore.db/country_lookup_1' TBLPROPERTIES ( 'transient_lastDdlTime'='1541145577')
+
+* web_address_lookup
+** Job name
+web_address_lookup_job
+** Featuregroup name
+web_address_lookup
+** Input
+hdfs:///Projects/test/sample_data/web_logs.csv
+** Description
+*** Table
+lookup table for id to web_address, used when converting from numeric to categorical representation and vice verse
+*** id
+The numeric id of the web_address
+*** web_address
+The categorical web_address
+** Parameters
+--input "hdfs:///Projects/test2/sample_data/web_logs.csv" --partitions 1 --version 1 --cluster --featuregroup "web_address_lookup"
+** Schema
+
+ |-- trx_country: string (nullable = true)
+ |-- id: long (nullable = false)
+
+ (long translates to BIGINT in HiveQL)
+
+REATE TABLE `country_lookup_1`( `id` bigint COMMENT 'The numeric id of the country', `trx_country` string COMMENT 'The categorical country') COMMENT 'lookup table for id to country, used when converting from numeric to categorical representation and vice verse' ROW FORMAT SERDE 'org.apache.hadoop.hive.ql.io.orc.OrcSerde' STORED AS INPUTFORMAT 'org.apache.hadoop.hive.ql.io.orc.OrcInputFormat' OUTPUTFORMAT 'org.apache.hadoop.hive.ql.io.orc.OrcOutputFormat' LOCATION 'hdfs://10.0.2.15:8020/apps/hive/warehouse/test2_featurestore.db/country_lookup_1' TBLPROPERTIES ( 'transient_lastDdlTime'='1541145577')
+
+* browser_action_lookup
+** Job name
+browser_action_lookup_job
+** Featuregroup name
+browser_action_lookup
+** Input
+hdfs:///Projects/test/sample_data/web_logs.csv
+** Description
+*** Table
+lookup table for id to browser_action, used when converting from numeric to categorical representation and vice verse
+*** id
+The numeric id of the browser_action
+*** industry_sector
+The categorical browser_action
+** Parameters
+--input "hdfs:///Projects/test2/sample_data/web_logs.csv" --partitions 1 --version 1 --cluster --featuregroup "rule_name_lookup"
+** Schema
+
+ |-- trx_country: string (nullable = true)
+ |-- id: long (nullable = false)
+
+ (long translates to BIGINT in HiveQL)
+
+REATE TABLE `country_lookup_1`( `id` bigint COMMENT 'The numeric id of the country', `trx_country` string COMMENT 'The categorical country') COMMENT 'lookup table for id to country, used when converting from numeric to categorical representation and vice verse' ROW FORMAT SERDE 'org.apache.hadoop.hive.ql.io.orc.OrcSerde' STORED AS INPUTFORMAT 'org.apache.hadoop.hive.ql.io.orc.OrcInputFormat' OUTPUTFORMAT 'org.apache.hadoop.hive.ql.io.orc.OrcOutputFormat' LOCATION 'hdfs://10.0.2.15:8020/apps/hive/warehouse/test2_featurestore.db/country_lookup_1' TBLPROPERTIES ( 'transient_lastDdlTime'='1541145577')
+* demographic_features
+** Job name
+demographic_features_job
+** Featuregroup name
+demographic_features
+** Input
+hdfs:///Projects/test/sample_data/kyc.csv
+** Description
+*** Table
+preprocessed features from the KYC table
+*** cust_id
+The id of the customer
+*** balance
+the balance of the customer
+*** birthdate
+the birthdate of the customer
+*** customer_type
+the type of customer
+*** gender
+the gender of the customer
+*** join_date
+the date that the customer joined Swedbank
+*** number_of_accounts
+the number of Swedbank accounts of the customer
+*** pep
+whether the person is a PEP or not
+
+** Parameters
+--input "hdfs:///Projects/test2/sample_data/kyc.csv" --partitions 1 --version 1 --cluster --featuregroup "demographic_features"
+ ** Schema
+
+ |-- balance: float (nullable = false)
+ |-- birthdate: timestamp (nullable = true)
+ |-- customer_type: long (nullable = false)
+ |-- gender: long (nullable = false)
+ |-- join_date: timestamp (nullable = true)
+ |-- number_of_accounts: integer (nullable = false)
+ |-- pep: long (nullable = false)
+* trx_graph_edge_list
+** Job name
+trx_graph_edge_list_job
+** Featuregroup name
+trx_graph_edge_list
+** Input
+hdfs:///Projects/test/sample_data/trx.csv
+** Description
+*** Table
+The edge list of the transactions graph
+*** cust_id_1
+The customer making the transaction
+*** cust_id_2
+The customer receiving the transaction
+*** amount
+The amount transferred in the transaction
+** Parameters
+--input "hdfs:///Projects/test2/sample_data/trx.csv" --partitions 1 --version 1 --cluster --featuregroup "trx_graph_edge_list"
+** Schema
+
+TODO
+* trx_graph_summary_features
+** Job name
+trx_graph_summary_features_job
+** Featuregroup name
+trx_graph_summary_features
+** Input
+hdfs:///Projects/test/sample_data/trx.csv
+** Description
+*** Table
+Contain aggregate graph features of a customer's transactions
+*** cust_id
+Id of the customer
+*** pagerank
+The pagerank of the customer in the transaction graph
+*** triangle_count
+The triangle count of the customer in the transaction graph
+** Parameters
+--input "hdfs:///Projects/test2/sample_data/trx.csv" --partitions 1 --version 1 --cluster --featuregroup "trx_graph_summary_features"
+** Schema
+
+TODO
+* trx_features
+** Job name
+trx_features_job
+** Featuregroup name
+trx_features
+** Input
+hdfs:///Projects/test/sample_data/trx.csv
+** Description
+*** Table
+TODO
+** Parameters
+--input "hdfs:///Projects/test2/sample_data/trx.csv" --partitions 1 --version 1 --cluster --featuregroup "trx_features"
+** Schema
+
+TODO
+* trx_summary_features
+** Job name
+trx_summary_features_job
+** Featuregroup name
+trx_summary_features
+** Input
+hdfs:///Projects/test/sample_data/trx.csv
+** Description
+*** Table
+Aggregate of transactions for customers
+*** cust_id
+The id of the customer
+*** min_trx
+The minimum transaction amount made by the customer
+*** max_trx
+The maximum transaction amount made by the customer
+*** avg_trx
+The average transaction amount of the customer
+*** count_trx
+The number of transactions made by the customer
+** Parameters
+--input "hdfs:///Projects/test2/sample_data/trx.csv" --partitions 1 --version 1 --cluster --featuregroup "trx_summary_features"
+** Schema
+
+TODO
+* hipo_features
+** Job name
+hipo_features_job
+** Featuregroup name
+hipo_features
+** Input
+hdfs:///Projects/test/sample_data/hipo.csv
+** Description
+*** Table
+Features on corporate customers
+*** corporate_id
+id of the corporate customer
+*** externa_kostnader
+The amount paid to external accounts by the corporate
+*** industry_sector
+The line of business of the corporate
+*** netomsettning_1year
+The net turnover for the first year of the corporate
+*** netomsettning_2year
+The net turnover for the first two years of the corporate
+*** netomsettning_3year
+The net turnover for the first three year of the corporate
+** Parameters
+--input "hdfs:///Projects/test2/sample_data/trx.csv" --partitions 1 --version 1 --cluster --featuregroup "hipo_features"
+** Schema
+
+TODO
+* alert_features
+** Job name
+alert_features_job
+** Featuregroup name
+alert_features
+** Input
+hdfs:///Projects/test/sample_data/alerts.csv
+** Description
+*** Table
+Features from transaction alerts
+*** alert_date
+The date of the alert
+*** alert_id
+The id of the alert
+*** alert_score
+The score of the alert indicating how severe the alert was
+*** alert_type
+The type of the alert, e.g TERRORISM
+*** rule_name
+The name of the rule that fired the alert
+*** trx_id
+The id of the transaction that was alerted
+** Parameters
+--input "hdfs:///Projects/test2/sample_data/trx.csv" --partitions 1 --version 1 --cluster --featuregroup "alert_features"
+** Schema
+
+TODO
+* police_report_features
+** Job name
+police_report_features_job
+** Featuregroup name
+police_report_features
+** Input
+hdfs:///Projects/test/sample_data/police_reports.csv
+** Description
+*** Table
+Features on customers reported to the police
+*** cust_id
+The id of the reported customer
+*** report_date
+The date the customer was reported
+*** report_id
+The id of the report
+** Parameters
+--input "hdfs:///Projects/test2/sample_data/police_reports.csv" --partitions 1 --version 1 --cluster --featuregroup "police_report_features"
+** Schema
+
+TODO
+* web_logs_features
+** Job name
+web_logs_features_job
+** Featuregroup name
+web_logs_features
+** Input
+hdfs:///Projects/test/sample_data/web_logs.csv
+** Description
+*** Table
+Features on web logs recording customer's activity with the internet bank
+*** action
+The type of web action
+*** address
+IP address used by the customer
+*** cust_id
+Id of the customer
+*** time_spent_seconds
+Number of seconds the web session was active
+*** web_id
+Id of the web activity
+** Parameters
+--input "hdfs:///Projects/test2/sample_data/web_logs.csv" --partitions 1 --version 1 --cluster --featuregroup "web_logs_features"
+** Schema
+
+TODO

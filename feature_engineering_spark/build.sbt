@@ -7,6 +7,7 @@ lazy val root = (project in file(".")).
       scalaVersion := "2.11.8",
       version      := "0.1.0-SNAPSHOT"
     )),
+    resolvers +=  "Sonatype OSS Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots",
     name := "feature_engineering_spark",
     libraryDependencies ++= Seq(
       scalaTest,
