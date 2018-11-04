@@ -8,7 +8,7 @@ $SPARK_HOME/bin/spark-submit \
     --executor-memory 16g \
     --conf spark.cores.max=4 \
     --conf spark.task.cpus=4 \
-    /home/kim/workspace/python/featurestore_demo/feature_engineering_spark/target/scala-2.11/feature_engineering_spark-assembly-0.1.0-SNAPSHOT.jar --input "/home/kim/workspace/python/featurestore_demo/sample_data/kyc.csv"  --partitions 1 --version 1 --cluster --featuregroup "demographic_features"
+    /home/kim/workspace/python/featurestore_demo/feature_engineering_spark/target/scala-2.11/feature_engineering_spark-assembly-0.1.0-SNAPSHOT.jar --input "/home/kim/workspace/python/featurestore_demo/sample_data/trx.csv"  --partitions 1 --version 1 --cluster --featuregroup "trx_features"
 
 # "/home/kim/workspace/python/featurestore_demo/sample_data/web_logs.csv"
 #

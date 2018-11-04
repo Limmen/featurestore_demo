@@ -16,7 +16,8 @@ object TrxSummaryFeatures {
     trx_clearinnum: Int,
     trx_country: String,
     trx_date: String,
-    trx_type: String)
+    trx_type: String,
+    trx_id: Int)
 
   case class TrxSummaryFeature(
     cust_id: Long,

@@ -15,7 +15,8 @@ object TrxGraphEdgeList {
     trx_clearinnum: Int,
     trx_country: String,
     trx_date: String,
-    trx_type: String)
+    trx_type: String,
+    trx_id: Int)
 
   case class Edge(
     cust_id_1: Int,

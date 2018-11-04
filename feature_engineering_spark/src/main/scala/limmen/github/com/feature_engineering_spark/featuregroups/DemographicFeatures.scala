@@ -20,8 +20,7 @@ object DemographicFeatures {
     name: String,
     number_of_accounts: Int,
     pep: Boolean,
-    cust_id: Int
-  )
+    cust_id: Int)
 
   case class ParsedParty(
     balance: Float,
@@ -31,8 +30,7 @@ object DemographicFeatures {
     join_date: Timestamp,
     number_of_accounts: Int,
     pep: Long,
-    cust_id: Int
-  )
+    cust_id: Int)
 
   val formatter = new java.text.SimpleDateFormat("yyyy-MM-dd")
 

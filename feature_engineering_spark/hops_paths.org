@@ -232,7 +232,7 @@ hdfs:///Projects/test/sample_data/web_logs.csv
 lookup table for id to browser_action, used when converting from numeric to categorical representation and vice verse
 *** id
 The numeric id of the browser_action
-*** industry_sector
+*** browser_action
 The categorical browser_action
 ** Parameters
 --input "hdfs:///Projects/test2/sample_data/web_logs.csv" --partitions 1 --version 1 --cluster --featuregroup "rule_name_lookup"
@@ -333,12 +333,38 @@ trx_features
 hdfs:///Projects/test/sample_data/trx.csv
 ** Description
 *** Table
-TODO
+Features for single transactions
+*** cust_id_in
+The cust_id of the customer making the transaction
+*** trx_type
+The type of the transaction
+*** trx_date
+The date of the transaction
+*** trx_amount
+The amount of money transferred in the transaction
+*** trx_bankid
+The bankid of the customer making the transaction
+*** cust_id_out
+The id of the customer receiving the transaction
+*** trx_clearingnum
+The clearingnumber of the customer making the transaction
+*** trx_country
+The country of the customer making the transaction
+*** trx_id
+The id of the transaction
 ** Parameters
 --input "hdfs:///Projects/test2/sample_data/trx.csv" --partitions 1 --version 1 --cluster --featuregroup "trx_features"
 ** Schema
 
-TODO
+ |-- cust_id_in: integer (nullable = false)
+ |-- trx_type: integer (nullable = false)
+ |-- trx_date: timestamp (nullable = true)
+ |-- trx_amount: float (nullable = false)
+ |-- trx_bankid: integer (nullable = false)
+ |-- cust_id_out: integer (nullable = false)
+ |-- trx_clearingnum: integer (nullable = false)
+ |-- trx_country: integer (nullable = false)
+ |-- trx_id: integer (nullable = false)
 * trx_summary_features
 ** Job name
 trx_summary_features_job

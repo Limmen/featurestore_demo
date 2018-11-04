@@ -65,7 +65,7 @@ object Main {
       case "demographic_features" => featuregroup.DemographicFeatures.computeFeatures(spark, conf.input(), conf.featuregroup(), conf.version(), conf.partitions(), log)
       case "trx_graph_edge_list" => featuregroup.TrxGraphEdgeList.computeFeatures(spark, conf.input(), conf.featuregroup(), conf.version(), conf.partitions(), log)
       case "trx_graph_summary_features" => featuregroup.TrxGraphSummaryFeatures.computeFeatures(spark, conf.input(), conf.featuregroup(), conf.version(), conf.partitions(), log)
-      case "trx_features" => featuregroup.TrxFeatures.computeFeatures(conf.input(), conf.featuregroup(), conf.version(), conf.partitions(), log)
+      case "trx_features" => featuregroup.TrxFeatures.computeFeatures(spark, conf.input(), conf.featuregroup(), conf.version(), conf.partitions(), log)
       case "trx_summary_features" => featuregroup.TrxSummaryFeatures.computeFeatures(spark, conf.input(), conf.featuregroup(), conf.version(), conf.partitions(), log)
       case "hipo_features" => featuregroup.HiPoFeatures.computeFeatures(spark, conf.input(), conf.featuregroup(), conf.version(), conf.partitions(), log)
       case "alert_features" => featuregroup.AlertFeatures.computeFeatures(spark, conf.input(), conf.featuregroup(), conf.version(), conf.partitions(), log)

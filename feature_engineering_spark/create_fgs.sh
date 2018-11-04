@@ -2,7 +2,7 @@
 
 PORT=28759
 PROJECT="test"
-JOBID=25
+JOBID=44
 
 #login
 curl -c cookie.txt -X POST \
@@ -271,6 +271,34 @@ curl -b cookie.txt -X POST \
   -H 'Content-Type: application/json' \
   -H 'Postman-Token: a91e2f27-8088-4b24-bb17-5c5c0f531a94' \
   -d '{
+	"featuregroupName": "browser_action_lookup",
+	"inputDataset": "hdfs:///Projects/'$PROJECT'/sample_data/web_logs.csv",
+	"jobId": '$JOBID',
+	"features": [
+		{
+			"type": "BIGINT",
+			"name": "id",
+			"description": "The numeric id of the browser_action",
+			"primary": true
+		},
+		{
+			"type": "STRING",
+			"name": "browser_action",
+			"description": "The categorical browser_action",
+			"primary": false
+		}
+		],
+	"description": "lookup table for id to browser_action, used when converting from numeric to categorical representation and vice verse"
+}'
+
+((JOBID++))
+
+curl -b cookie.txt -X POST \
+  http://localhost:$PORT/hopsworks-api/api/project/1/featurestores/1/featuregroups \
+  -H 'Cache-Control: no-cache' \
+  -H 'Content-Type: application/json' \
+  -H 'Postman-Token: a91e2f27-8088-4b24-bb17-5c5c0f531a94' \
+  -d '{
 	"featuregroupName": "demographic_features",
 	"inputDataset": "hdfs:///Projects/'$PROJECT'/sample_data/kyc.csv",
 	"jobId": '$JOBID',
@@ -394,6 +422,76 @@ curl -b cookie.txt -X POST \
 		}
 		],
 	"description": "Contain aggregate graph features of a customers transactions"
+}'
+
+((JOBID++))
+
+curl -b cookie.txt -X POST \
+  http://localhost:$PORT/hopsworks-api/api/project/1/featurestores/1/featuregroups \
+  -H 'Cache-Control: no-cache' \
+  -H 'Content-Type: application/json' \
+  -H 'Postman-Token: a91e2f27-8088-4b24-bb17-5c5c0f531a94' \
+  -d '{
+	"featuregroupName": "trx_features",
+	"inputDataset": "hdfs:///Projects/'$PROJECT'/sample_data/trx.csv",
+	"jobId": '$JOBID',
+	"features": [
+		{
+			"type": "INT",
+			"name": "trx_id",
+			"description": "The id of the transaction",
+			"primary": true
+		},
+		{
+			"type": "INT",
+			"name": "cust_id_in",
+			"description": "The cust_id of the customer making the transaction",
+			"primary": false
+		},
+		{
+			"type": "INT",
+			"name": "cust_id_out",
+			"description": "The id of the customer receiving the transaction",
+			"primary": false
+		},
+		{
+			"type": "BIGINT",
+			"name": "trx_type",
+			"description": "The type of the transaction",
+			"primary": false
+		},
+		{
+			"type": "BIGINT",
+			"name": "trx_country",
+			"description": "The country of the customer making the transaction",
+			"primary": false
+		},
+		{
+			"type": "TIMESTAMP",
+			"name": "trx_date",
+			"description": "The date of the transaction",
+			"primary": false
+		},
+		{
+			"type": "Float",
+			"name": "trx_amount",
+			"description": "The amount of money transferred in the transaction",
+			"primary": false
+		},
+		{
+			"type": "INT",
+			"name": "trx_bankid",
+			"description": "The bankid of the customer making the transaction",
+			"primary": false
+		},
+		{
+			"type": "INT",
+			"name": "trx_clearingnum",
+			"description": "The clearingnumber of the customer making the transaction",
+			"primary": false
+		}
+		],
+	"description": "Features for single transactions"
 }'
 
 ((JOBID++))
