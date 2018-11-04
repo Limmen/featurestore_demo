@@ -23,7 +23,7 @@ object BrowserActionLookup {
   def computeFeatures(spark: SparkSession, input: String, featuregroupName: String, version: Int, partitions: Int, log: Logger): Unit = {
     log.info(s"Running computeFeatures for featuregroup: ${featuregroupName}")
     val rawDf = spark.read.format("csv").option("header", "true").option("inferSchema", "true").load(input).repartition(partitions)
-    val webActions = rawDf.select("action").distinct
+    val webActions = rawDf.select("action").distinct.withColumnRenamed("action", "browser_action");
     val webActionsWithIndex = webActions.withColumn("id", monotonically_increasing_id())
     log.info("Extracted web-action types and mapped to ids:")
     log.info(webActionsWithIndex.show(5))

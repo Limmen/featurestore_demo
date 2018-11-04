@@ -4,6 +4,7 @@ import org.apache.log4j.{ Level, LogManager, Logger }
 import org.apache.spark.sql.SparkSession
 import org.apache.spark.sql.functions.monotonically_increasing_id
 import io.hops.util.Hops
+import org.apache.spark.sql.Row
 
 /**
  * Contains logic for computing the pep_lookup featuregroup
@@ -22,7 +23,8 @@ object PepLookup {
    */
   def computeFeatures(spark: SparkSession, input: String, featuregroupName: String, version: Int, partitions: Int, log: Logger): Unit = {
     log.info(s"Running computeFeatures for featuregroup: ${featuregroupName}")
-    val rawDf = spark.read.format("csv").option("header", "true").option("inferSchema", "true").load(input).repartition(partitions)
+    val rawDf = spark.read.format("csv").option("header", "true").load(input).repartition(partitions)
+    import spark.implicits._
     val peps = rawDf.select("pep").distinct
     val pepsWithIndex = peps.withColumn("id", monotonically_increasing_id())
     log.info("Extracted peps and mapped to ids:")

@@ -23,7 +23,7 @@ object WebAddressLookup {
   def computeFeatures(spark: SparkSession, input: String, featuregroupName: String, version: Int, partitions: Int, log: Logger): Unit = {
     log.info(s"Running computeFeatures for featuregroup: ${featuregroupName}")
     val rawDf = spark.read.format("csv").option("header", "true").option("inferSchema", "true").load(input).repartition(partitions)
-    val webAddresses = rawDf.select("address").distinct
+    val webAddresses = rawDf.select("address").distinct.withColumnRenamed("address", "web_address");
     val webAddressesWithIndex = webAddresses.withColumn("id", monotonically_increasing_id())
     log.info("Extracted web-address types and mapped to ids:")
     log.info(webAddressesWithIndex.show(5))
