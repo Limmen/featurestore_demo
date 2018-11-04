@@ -2,6 +2,8 @@ package limmen.github.com.feature_engineering_spark.featuregroup
 
 import org.apache.log4j.{ Level, LogManager, Logger }
 import org.apache.spark.sql.SparkSession
+import io.hops.util.Hops
+import org.apache.spark.sql.Row
 
 /**
  * Contains logic for computing the web_logs_features featuregroup
@@ -16,8 +18,8 @@ object WebLogsFeatures {
     web_id: Int)
 
   case class WebLogFeature(
-    action: Int,
-    address: Int,
+    action: Long,
+    address: Long,
     cust_id: Int,
     time_spent_seconds: Int,
     web_id: Int)
@@ -38,9 +40,22 @@ object WebLogsFeatures {
     import spark.implicits._
     val rawDs = rawDf.as[RawWebLog]
     log.info("Parsed dataframe to dataset")
+    val featurestore = Hops.getProjectFeaturestore
+    val browserActionLookupDf = Hops.getFeaturegroup(spark, "browser_action_lookup", featurestore, 1)
+    log.info(browserActionLookupDf.show(5))
+    val browserActionLookupList: Array[Row] = browserActionLookupDf.collect
+    val browserActionLookupMap = browserActionLookupList.map((row: Row) => {
+      row.getAs[String]("browser_action") -> row.getAs[Long]("id")
+    }).toMap
+    val webAddressLookupDf = Hops.getFeaturegroup(spark, "web_address_lookup", featurestore, 1)
+    log.info(webAddressLookupDf.show(5))
+    val webAddressLookupList: Array[Row] = webAddressLookupDf.collect
+    val webAddressLookupMap = webAddressLookupList.map((row: Row) => {
+      row.getAs[String]("web_address") -> row.getAs[Long]("id")
+    }).toMap
     val parsedDs = rawDs.map((webLog: RawWebLog) => {
-      val action = 1 //placeholder
-      val address = 1 //placeholder
+      val action = browserActionLookupMap(webLog.action)
+      val address = webAddressLookupMap(webLog.address)
       val cust_id = webLog.cust_id
       val time_spent_seconds = webLog.time_spent_seconds
       val web_id = webLog.web_id
@@ -49,5 +64,8 @@ object WebLogsFeatures {
     log.info("Converted dataset to numeric, feature engineering complete")
     log.info(parsedDs.show(5))
     log.info("Schema: \n" + parsedDs.printSchema)
+    log.info(s"Inserting into featuregroup $featuregroupName version $version in featurestore $featurestore")
+    Hops.insertIntoFeaturegroup(parsedDs.toDF, spark, featuregroupName, featurestore, version)
+    log.info(s"Insertion into featuregroup $featuregroupName complete")
   }
 }

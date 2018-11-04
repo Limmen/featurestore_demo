@@ -5,6 +5,7 @@ import org.apache.spark.SparkContext
 import org.apache.spark.sql.SparkSession
 import org.apache.spark.graphx._
 import org.apache.spark.sql.Row
+import io.hops.util.Hops
 
 /**
  * Contains logic for computing the trx_graph_summary_features featuregroup
@@ -32,10 +33,10 @@ object TrxGraphSummaryFeatures {
    * @param partitions number of spark partitions to parallelize the compute on
    * @param logger spark logger
    */
-  def computeFeatures(sparkSession: SparkSession, input: String, featuregroupName: String, version: Int, partitions: Int, log: Logger): Unit = {
+  def computeFeatures(spark: SparkSession, input: String, featuregroupName: String, version: Int, partitions: Int, log: Logger): Unit = {
     log.info(s"Running computeFeatures for featuregroup: ${featuregroupName}")
-    import sparkSession.implicits._
-    val edges = List(
+    import spark.implicits._
+    /*val edges = List(
       TrxEdge(1, 2, 10.0f),
       TrxEdge(1, 3, 5.0f),
       TrxEdge(1, 4, 10.0f),
@@ -48,7 +49,11 @@ object TrxGraphSummaryFeatures {
       TrxEdge(9, 8, 10.0f),
       TrxEdge(10, 9, 10.0f),
       TrxEdge(10, 1, 15.0f))
-    val edgesDs = sparkSession.sparkContext.parallelize(edges).toDS
+     */
+    val featurestore = Hops.getProjectFeaturestore
+    val edges = Hops.getFeaturegroup(spark, "trx_graph_edge_list", featurestore, 1)
+    val edgesDs = edges.as[TrxEdge]
+    //spark.sparkContext.parallelize(edges).toDS
     val inNodesDs = edgesDs.map((edge: TrxEdge) => TrxNode(edge.cust_id_1))
     val outNodesDs = edgesDs.map((edge: TrxEdge) => TrxNode(edge.cust_id_2))
     val propertyEdges = edgesDs.map((edge: TrxEdge) => Edge(edge.cust_id_1, edge.cust_id_2, edge))
@@ -79,5 +84,8 @@ object TrxGraphSummaryFeatures {
       GraphSummaryFeature(cust_id, pagerank, triangleCount)
     }).toDS
     log.info(s"Features: \n: ${features.show(5)}")
+    log.info(s"Inserting into featuregroup $featuregroupName version $version in featurestore $featurestore")
+    Hops.insertIntoFeaturegroup(features.toDF, spark, featuregroupName, featurestore, version)
+    log.info(s"Insertion into featuregroup $featuregroupName complete")
   }
 }

@@ -2,6 +2,7 @@ package limmen.github.com.feature_engineering_spark.featuregroup
 
 import org.apache.log4j.{ Level, LogManager, Logger }
 import org.apache.spark.sql.SparkSession
+import io.hops.util.Hops
 /**
  * Contains logic for computing the trx_graph_edge_list featuregroup
  */
@@ -48,5 +49,9 @@ object TrxGraphEdgeList {
     log.info("Converted dataset to numeric, feature engineering complete")
     log.info(parsedDs.show(5))
     log.info("Schema: \n" + parsedDs.printSchema)
+    val featurestore = Hops.getProjectFeaturestore
+    log.info(s"Inserting into featuregroup $featuregroupName version $version in featurestore $featurestore")
+    Hops.insertIntoFeaturegroup(parsedDs.toDF, spark, featuregroupName, featurestore, version)
+    log.info(s"Insertion into featuregroup $featuregroupName complete")
   }
 }

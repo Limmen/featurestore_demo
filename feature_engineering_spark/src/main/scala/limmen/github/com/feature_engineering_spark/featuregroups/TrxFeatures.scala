@@ -3,6 +3,8 @@ package limmen.github.com.feature_engineering_spark.featuregroup
 import org.apache.log4j.{ Level, LogManager, Logger }
 import java.sql.Timestamp
 import org.apache.spark.sql.SparkSession
+import org.apache.spark.sql.Row
+import io.hops.util.Hops
 
 /**
  * Contains logic for computing the trx_features featuregroup
@@ -22,13 +24,13 @@ object TrxFeatures {
 
   case class TrxFeature(
     cust_id_in: Int,
-    trx_type: Int,
+    trx_type: Long,
     trx_date: Timestamp,
     trx_amount: Float,
     trx_bankid: Int,
     cust_id_out: Int,
     trx_clearingnum: Int,
-    trx_country: Int,
+    trx_country: Long,
     trx_id: Int)
 
   val formatter = new java.text.SimpleDateFormat("yyyy-MM-dd")
@@ -48,6 +50,19 @@ object TrxFeatures {
     import spark.implicits._
     val rawDs = rawDf.as[RawTrx]
     log.info("Parsed dataframe to dataset")
+    val featurestore = Hops.getProjectFeaturestore
+    val countryLookupDf = Hops.getFeaturegroup(spark, "country_lookup", featurestore, 1)
+    log.info(countryLookupDf.show(5))
+    val countryLookupList: Array[Row] = countryLookupDf.collect
+    val countryLookupMap = countryLookupList.map((row: Row) => {
+      row.getAs[String]("trx_country") -> row.getAs[Long]("id")
+    }).toMap
+    val trxTypeLookupDf = Hops.getFeaturegroup(spark, "trx_type_lookup", featurestore, 1)
+    log.info(trxTypeLookupDf.show(5))
+    val trxTypeLookupList: Array[Row] = trxTypeLookupDf.collect
+    val trxTypeLookupMap = trxTypeLookupList.map((row: Row) => {
+      row.getAs[String]("trx_type") -> row.getAs[Long]("id")
+    }).toMap
     val parsedDs = rawDs.map((trx: RawTrx) => {
       val cust_id_in = trx.cust_id_in
       val cust_id_out = trx.cust_id_out
@@ -55,13 +70,16 @@ object TrxFeatures {
       val trx_amount = trx.trx_amount.toFloat
       val trx_bankid = trx.trx_bankid
       val trx_clearingnum = trx.trx_clearinnum
-      val trx_country = 1 //placeholder
-      val trx_type = 1 //placeholder
+      val trx_country = countryLookupMap(trx.trx_country)
+      val trx_type = trxTypeLookupMap(trx.trx_type)
       val trx_id = trx.trx_id
       TrxFeature(cust_id_in, trx_type, trxDate, trx_amount, trx_bankid, cust_id_out, trx_clearingnum, trx_country, trx_id)
     })
     log.info("Converted dataset to numeric, feature engineering complete")
     log.info(parsedDs.show(5))
     log.info("Schema: \n" + parsedDs.printSchema)
+    log.info(s"Inserting into featuregroup $featuregroupName version $version in featurestore $featurestore")
+    Hops.insertIntoFeaturegroup(parsedDs.toDF, spark, featuregroupName, featurestore, version)
+    log.info(s"Insertion into featuregroup $featuregroupName complete")
   }
 }

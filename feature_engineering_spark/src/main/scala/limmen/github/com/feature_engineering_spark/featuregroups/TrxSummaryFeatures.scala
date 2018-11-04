@@ -3,6 +3,7 @@ package limmen.github.com.feature_engineering_spark.featuregroup
 import org.apache.log4j.{ Level, LogManager, Logger }
 import org.apache.spark.sql.SparkSession
 import org.apache.spark.sql.Row
+import io.hops.util.Hops
 /**
  * Contains logic for computing the trx_summary_features featuregroup
  */
@@ -73,5 +74,9 @@ object TrxSummaryFeatures {
       new TrxSummaryFeature(custId.toLong, min, max, avg, count)
     }).toDS
     log.info(s"Joined parsed features: ${features.show(5)}")
+    val featurestore = Hops.getProjectFeaturestore
+    log.info(s"Inserting into featuregroup $featuregroupName version $version in featurestore $featurestore")
+    Hops.insertIntoFeaturegroup(features.toDF, spark, featuregroupName, featurestore, version)
+    log.info(s"Insertion into featuregroup $featuregroupName complete")
   }
 }
