@@ -1,0 +1,7 @@
+/srv/hops/hadoop/bin/hadoop fs -ls /user/spark/
+
+/srv/hops/hadoop/bin/hadoop fs -rm /user/spark/hops-util-0.7.0-SNAPSHOT.jar
+
+/srv/hops/hadoop/bin/hadoop fs -rm /user/spark/hops-util-0.7.0-SNAPSHOT.jar
+
+scp -r -P 32279 /home/kim/workspace/logicalclocks/hops-util/target/hops-util-0.7.0-SNAPSHOT-shaded.jar vagrant@127.0.0.1:/home/vagrant/hops-util-0.7.0-SNAPSHOT.jar

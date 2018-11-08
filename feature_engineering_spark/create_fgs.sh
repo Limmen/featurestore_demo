@@ -1,8 +1,8 @@
 #!/bin/bash
 
-PORT=28759
-PROJECT="test"
-JOBID=63
+PORT=28225
+PROJECT="hopsworksdemo"
+JOBID=20
 
 #login
 curl -c cookie.txt -X POST \
