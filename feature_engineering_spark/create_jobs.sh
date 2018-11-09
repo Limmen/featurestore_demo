@@ -1,7 +1,8 @@
 #!/bin/bash
 
-PORT=28225
-PROJECT="hopsworksdemo"
+PORT=$1
+PROJECT=$2
+PROJECTID=$3
 
 #login
 curl -c cookie.txt -X POST \
@@ -13,7 +14,7 @@ curl -c cookie.txt -X POST \
 
 # create jobs
 curl -b cookie.txt -X POST \
-  http://localhost:$PORT/hopsworks-api/api/project/1/jobs/spark \
+  http://localhost:$PORT/hopsworks-api/api/project/$PROJECTID/jobs/spark \
   -H 'Cache-Control: no-cache' \
   -H 'Content-Type: application/json' \
   -H 'Postman-Token: 887f91b9-c800-4ee2-bd8c-dd9faa27596d' \
@@ -42,7 +43,7 @@ curl -b cookie.txt -X POST \
 }'
 
 curl -b cookie.txt -X POST \
-  http://localhost:$PORT/hopsworks-api/api/project/1/jobs/spark \
+  http://localhost:$PORT/hopsworks-api/api/project/$PROJECTID/jobs/spark \
   -H 'Cache-Control: no-cache' \
   -H 'Content-Type: application/json' \
   -H 'Postman-Token: 887f91b9-c800-4ee2-bd8c-dd9faa27596d' \
@@ -71,7 +72,7 @@ curl -b cookie.txt -X POST \
 }'
 
 curl -b cookie.txt -X POST \
-  http://localhost:$PORT/hopsworks-api/api/project/1/jobs/spark \
+  http://localhost:$PORT/hopsworks-api/api/project/$PROJECTID/jobs/spark \
   -H 'Cache-Control: no-cache' \
   -H 'Content-Type: application/json' \
   -H 'Postman-Token: 887f91b9-c800-4ee2-bd8c-dd9faa27596d' \
@@ -100,7 +101,7 @@ curl -b cookie.txt -X POST \
 }'
 
 curl -b cookie.txt -X POST \
-  http://localhost:$PORT/hopsworks-api/api/project/1/jobs/spark \
+  http://localhost:$PORT/hopsworks-api/api/project/$PROJECTID/jobs/spark \
   -H 'Cache-Control: no-cache' \
   -H 'Content-Type: application/json' \
   -H 'Postman-Token: 887f91b9-c800-4ee2-bd8c-dd9faa27596d' \
@@ -129,7 +130,7 @@ curl -b cookie.txt -X POST \
 }'
 
 curl -b cookie.txt -X POST \
-  http://localhost:$PORT/hopsworks-api/api/project/1/jobs/spark \
+  http://localhost:$PORT/hopsworks-api/api/project/$PROJECTID/jobs/spark \
   -H 'Cache-Control: no-cache' \
   -H 'Content-Type: application/json' \
   -H 'Postman-Token: 887f91b9-c800-4ee2-bd8c-dd9faa27596d' \
@@ -158,7 +159,7 @@ curl -b cookie.txt -X POST \
 }'
 
 curl -b cookie.txt -X POST \
-  http://localhost:$PORT/hopsworks-api/api/project/1/jobs/spark \
+  http://localhost:$PORT/hopsworks-api/api/project/$PROJECTID/jobs/spark \
   -H 'Cache-Control: no-cache' \
   -H 'Content-Type: application/json' \
   -H 'Postman-Token: 887f91b9-c800-4ee2-bd8c-dd9faa27596d' \
@@ -187,7 +188,7 @@ curl -b cookie.txt -X POST \
 }'
 
 curl -b cookie.txt -X POST \
-  http://localhost:$PORT/hopsworks-api/api/project/1/jobs/spark \
+  http://localhost:$PORT/hopsworks-api/api/project/$PROJECTID/jobs/spark \
   -H 'Cache-Control: no-cache' \
   -H 'Content-Type: application/json' \
   -H 'Postman-Token: 887f91b9-c800-4ee2-bd8c-dd9faa27596d' \
@@ -216,7 +217,7 @@ curl -b cookie.txt -X POST \
 }'
 
 curl -b cookie.txt -X POST \
-  http://localhost:$PORT/hopsworks-api/api/project/1/jobs/spark \
+  http://localhost:$PORT/hopsworks-api/api/project/$PROJECTID/jobs/spark \
   -H 'Cache-Control: no-cache' \
   -H 'Content-Type: application/json' \
   -H 'Postman-Token: 887f91b9-c800-4ee2-bd8c-dd9faa27596d' \
@@ -245,7 +246,7 @@ curl -b cookie.txt -X POST \
 }'
 
 curl -b cookie.txt -X POST \
-  http://localhost:$PORT/hopsworks-api/api/project/1/jobs/spark \
+  http://localhost:$PORT/hopsworks-api/api/project/$PROJECTID/jobs/spark \
   -H 'Cache-Control: no-cache' \
   -H 'Content-Type: application/json' \
   -H 'Postman-Token: 887f91b9-c800-4ee2-bd8c-dd9faa27596d' \
@@ -274,7 +275,7 @@ curl -b cookie.txt -X POST \
 }'
 
 curl -b cookie.txt -X POST \
-  http://localhost:$PORT/hopsworks-api/api/project/1/jobs/spark \
+  http://localhost:$PORT/hopsworks-api/api/project/$PROJECTID/jobs/spark \
   -H 'Cache-Control: no-cache' \
   -H 'Content-Type: application/json' \
   -H 'Postman-Token: 887f91b9-c800-4ee2-bd8c-dd9faa27596d' \
@@ -303,7 +304,7 @@ curl -b cookie.txt -X POST \
 }'
 
 curl -b cookie.txt -X POST \
-  http://localhost:$PORT/hopsworks-api/api/project/1/jobs/spark \
+  http://localhost:$PORT/hopsworks-api/api/project/$PROJECTID/jobs/spark \
   -H 'Cache-Control: no-cache' \
   -H 'Content-Type: application/json' \
   -H 'Postman-Token: 887f91b9-c800-4ee2-bd8c-dd9faa27596d' \
@@ -332,7 +333,7 @@ curl -b cookie.txt -X POST \
 }'
 
 curl -b cookie.txt -X POST \
-  http://localhost:$PORT/hopsworks-api/api/project/1/jobs/spark \
+  http://localhost:$PORT/hopsworks-api/api/project/$PROJECTID/jobs/spark \
   -H 'Cache-Control: no-cache' \
   -H 'Content-Type: application/json' \
   -H 'Postman-Token: 887f91b9-c800-4ee2-bd8c-dd9faa27596d' \
@@ -361,7 +362,7 @@ curl -b cookie.txt -X POST \
 }'
 
 curl -b cookie.txt -X POST \
-  http://localhost:$PORT/hopsworks-api/api/project/1/jobs/spark \
+  http://localhost:$PORT/hopsworks-api/api/project/$PROJECTID/jobs/spark \
   -H 'Cache-Control: no-cache' \
   -H 'Content-Type: application/json' \
   -H 'Postman-Token: 887f91b9-c800-4ee2-bd8c-dd9faa27596d' \
@@ -390,7 +391,7 @@ curl -b cookie.txt -X POST \
 }'
 
 curl -b cookie.txt -X POST \
-  http://localhost:$PORT/hopsworks-api/api/project/1/jobs/spark \
+  http://localhost:$PORT/hopsworks-api/api/project/$PROJECTID/jobs/spark \
   -H 'Cache-Control: no-cache' \
   -H 'Content-Type: application/json' \
   -H 'Postman-Token: 887f91b9-c800-4ee2-bd8c-dd9faa27596d' \
@@ -419,7 +420,7 @@ curl -b cookie.txt -X POST \
 }'
 
 curl -b cookie.txt -X POST \
-  http://localhost:$PORT/hopsworks-api/api/project/1/jobs/spark \
+  http://localhost:$PORT/hopsworks-api/api/project/$PROJECTID/jobs/spark \
   -H 'Cache-Control: no-cache' \
   -H 'Content-Type: application/json' \
   -H 'Postman-Token: 887f91b9-c800-4ee2-bd8c-dd9faa27596d' \
@@ -448,7 +449,7 @@ curl -b cookie.txt -X POST \
 }'
 
 curl -b cookie.txt -X POST \
-  http://localhost:$PORT/hopsworks-api/api/project/1/jobs/spark \
+  http://localhost:$PORT/hopsworks-api/api/project/$PROJECTID/jobs/spark \
   -H 'Cache-Control: no-cache' \
   -H 'Content-Type: application/json' \
   -H 'Postman-Token: 887f91b9-c800-4ee2-bd8c-dd9faa27596d' \
@@ -477,7 +478,7 @@ curl -b cookie.txt -X POST \
 }'
 
 curl -b cookie.txt -X POST \
-  http://localhost:$PORT/hopsworks-api/api/project/1/jobs/spark \
+  http://localhost:$PORT/hopsworks-api/api/project/$PROJECTID/jobs/spark \
   -H 'Cache-Control: no-cache' \
   -H 'Content-Type: application/json' \
   -H 'Postman-Token: 887f91b9-c800-4ee2-bd8c-dd9faa27596d' \
@@ -506,7 +507,7 @@ curl -b cookie.txt -X POST \
 }'
 
 curl -b cookie.txt -X POST \
-  http://localhost:$PORT/hopsworks-api/api/project/1/jobs/spark \
+  http://localhost:$PORT/hopsworks-api/api/project/$PROJECTID/jobs/spark \
   -H 'Cache-Control: no-cache' \
   -H 'Content-Type: application/json' \
   -H 'Postman-Token: 887f91b9-c800-4ee2-bd8c-dd9faa27596d' \
@@ -535,7 +536,7 @@ curl -b cookie.txt -X POST \
 }'
 
 curl -b cookie.txt -X POST \
-  http://localhost:$PORT/hopsworks-api/api/project/1/jobs/spark \
+  http://localhost:$PORT/hopsworks-api/api/project/$PROJECTID/jobs/spark \
   -H 'Cache-Control: no-cache' \
   -H 'Content-Type: application/json' \
   -H 'Postman-Token: 887f91b9-c800-4ee2-bd8c-dd9faa27596d' \

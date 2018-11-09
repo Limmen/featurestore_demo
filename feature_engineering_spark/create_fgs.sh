@@ -1,8 +1,10 @@
 #!/bin/bash
 
-PORT=28225
-PROJECT="hopsworksdemo"
-JOBID=20
+PORT=$1
+PROJECT=$2
+PROJECTID=$3
+FEATURESTOREID=$4
+JOBID=$5
 
 #login
 curl -c cookie.txt -X POST \
@@ -13,7 +15,7 @@ curl -c cookie.txt -X POST \
   -d 'email=admin%40kth.se&password=admin'
 
 curl -b cookie.txt -X POST \
-  http://localhost:$PORT/hopsworks-api/api/project/1/featurestores/1/featuregroups \
+  http://localhost:$PORT/hopsworks-api/api/project/$PROJECTID/featurestores/$FEATURESTOREID/featuregroups \
   -H 'Cache-Control: no-cache' \
   -H 'Content-Type: application/json' \
   -H 'Postman-Token: a91e2f27-8088-4b24-bb17-5c5c0f531a94' \
@@ -42,7 +44,7 @@ curl -b cookie.txt -X POST \
 
 
 curl -b cookie.txt -X POST \
-  http://localhost:$PORT/hopsworks-api/api/project/1/featurestores/1/featuregroups \
+  http://localhost:$PORT/hopsworks-api/api/project/$PROJECTID/featurestores/$FEATURESTOREID/featuregroups \
   -H 'Cache-Control: no-cache' \
   -H 'Content-Type: application/json' \
   -H 'Postman-Token: a91e2f27-8088-4b24-bb17-5c5c0f531a94' \
@@ -70,7 +72,7 @@ curl -b cookie.txt -X POST \
 ((JOBID++))
 
 curl -b cookie.txt -X POST \
-  http://localhost:$PORT/hopsworks-api/api/project/1/featurestores/1/featuregroups \
+  http://localhost:$PORT/hopsworks-api/api/project/$PROJECTID/featurestores/$FEATURESTOREID/featuregroups \
   -H 'Cache-Control: no-cache' \
   -H 'Content-Type: application/json' \
   -H 'Postman-Token: a91e2f27-8088-4b24-bb17-5c5c0f531a94' \
@@ -98,7 +100,7 @@ curl -b cookie.txt -X POST \
 ((JOBID++))
 
 curl -b cookie.txt -X POST \
-  http://localhost:$PORT/hopsworks-api/api/project/1/featurestores/1/featuregroups \
+  http://localhost:$PORT/hopsworks-api/api/project/$PROJECTID/featurestores/$FEATURESTOREID/featuregroups \
   -H 'Cache-Control: no-cache' \
   -H 'Content-Type: application/json' \
   -H 'Postman-Token: a91e2f27-8088-4b24-bb17-5c5c0f531a94' \
@@ -126,7 +128,7 @@ curl -b cookie.txt -X POST \
 ((JOBID++))
 
 curl -b cookie.txt -X POST \
-  http://localhost:$PORT/hopsworks-api/api/project/1/featurestores/1/featuregroups \
+  http://localhost:$PORT/hopsworks-api/api/project/$PROJECTID/featurestores/$FEATURESTOREID/featuregroups \
   -H 'Cache-Control: no-cache' \
   -H 'Content-Type: application/json' \
   -H 'Postman-Token: a91e2f27-8088-4b24-bb17-5c5c0f531a94' \
@@ -154,7 +156,7 @@ curl -b cookie.txt -X POST \
 ((JOBID++))
 
 curl -b cookie.txt -X POST \
-  http://localhost:$PORT/hopsworks-api/api/project/1/featurestores/1/featuregroups \
+  http://localhost:$PORT/hopsworks-api/api/project/$PROJECTID/featurestores/$FEATURESTOREID/featuregroups \
   -H 'Cache-Control: no-cache' \
   -H 'Content-Type: application/json' \
   -H 'Postman-Token: a91e2f27-8088-4b24-bb17-5c5c0f531a94' \
@@ -182,7 +184,7 @@ curl -b cookie.txt -X POST \
 ((JOBID++))
 
 curl -b cookie.txt -X POST \
-  http://localhost:$PORT/hopsworks-api/api/project/1/featurestores/1/featuregroups \
+  http://localhost:$PORT/hopsworks-api/api/project/$PROJECTID/featurestores/$FEATURESTOREID/featuregroups \
   -H 'Cache-Control: no-cache' \
   -H 'Content-Type: application/json' \
   -H 'Postman-Token: a91e2f27-8088-4b24-bb17-5c5c0f531a94' \
@@ -210,7 +212,7 @@ curl -b cookie.txt -X POST \
 ((JOBID++))
 
 curl -b cookie.txt -X POST \
-  http://localhost:$PORT/hopsworks-api/api/project/1/featurestores/1/featuregroups \
+  http://localhost:$PORT/hopsworks-api/api/project/$PROJECTID/featurestores/$FEATURESTOREID/featuregroups \
   -H 'Cache-Control: no-cache' \
   -H 'Content-Type: application/json' \
   -H 'Postman-Token: a91e2f27-8088-4b24-bb17-5c5c0f531a94' \
@@ -238,7 +240,7 @@ curl -b cookie.txt -X POST \
 ((JOBID++))
 
 curl -b cookie.txt -X POST \
-  http://localhost:$PORT/hopsworks-api/api/project/1/featurestores/1/featuregroups \
+  http://localhost:$PORT/hopsworks-api/api/project/$PROJECTID/featurestores/$FEATURESTOREID/featuregroups \
   -H 'Cache-Control: no-cache' \
   -H 'Content-Type: application/json' \
   -H 'Postman-Token: a91e2f27-8088-4b24-bb17-5c5c0f531a94' \
@@ -266,7 +268,7 @@ curl -b cookie.txt -X POST \
 ((JOBID++))
 
 curl -b cookie.txt -X POST \
-  http://localhost:$PORT/hopsworks-api/api/project/1/featurestores/1/featuregroups \
+  http://localhost:$PORT/hopsworks-api/api/project/$PROJECTID/featurestores/$FEATURESTOREID/featuregroups \
   -H 'Cache-Control: no-cache' \
   -H 'Content-Type: application/json' \
   -H 'Postman-Token: a91e2f27-8088-4b24-bb17-5c5c0f531a94' \
@@ -294,7 +296,7 @@ curl -b cookie.txt -X POST \
 ((JOBID++))
 
 curl -b cookie.txt -X POST \
-  http://localhost:$PORT/hopsworks-api/api/project/1/featurestores/1/featuregroups \
+  http://localhost:$PORT/hopsworks-api/api/project/$PROJECTID/featurestores/$FEATURESTOREID/featuregroups \
   -H 'Cache-Control: no-cache' \
   -H 'Content-Type: application/json' \
   -H 'Postman-Token: a91e2f27-8088-4b24-bb17-5c5c0f531a94' \
@@ -359,7 +361,7 @@ curl -b cookie.txt -X POST \
 
 
 curl -b cookie.txt -X POST \
-  http://localhost:$PORT/hopsworks-api/api/project/1/featurestores/1/featuregroups \
+  http://localhost:$PORT/hopsworks-api/api/project/$PROJECTID/featurestores/$FEATURESTOREID/featuregroups \
   -H 'Cache-Control: no-cache' \
   -H 'Content-Type: application/json' \
   -H 'Postman-Token: a91e2f27-8088-4b24-bb17-5c5c0f531a94' \
@@ -393,7 +395,7 @@ curl -b cookie.txt -X POST \
 ((JOBID++))
 
 curl -b cookie.txt -X POST \
-  http://localhost:$PORT/hopsworks-api/api/project/1/featurestores/1/featuregroups \
+  http://localhost:$PORT/hopsworks-api/api/project/$PROJECTID/featurestores/$FEATURESTOREID/featuregroups \
   -H 'Cache-Control: no-cache' \
   -H 'Content-Type: application/json' \
   -H 'Postman-Token: a91e2f27-8088-4b24-bb17-5c5c0f531a94' \
@@ -427,7 +429,7 @@ curl -b cookie.txt -X POST \
 ((JOBID++))
 
 curl -b cookie.txt -X POST \
-  http://localhost:$PORT/hopsworks-api/api/project/1/featurestores/1/featuregroups \
+  http://localhost:$PORT/hopsworks-api/api/project/$PROJECTID/featurestores/$FEATURESTOREID/featuregroups \
   -H 'Cache-Control: no-cache' \
   -H 'Content-Type: application/json' \
   -H 'Postman-Token: a91e2f27-8088-4b24-bb17-5c5c0f531a94' \
@@ -497,7 +499,7 @@ curl -b cookie.txt -X POST \
 ((JOBID++))
 
 curl -b cookie.txt -X POST \
-  http://localhost:$PORT/hopsworks-api/api/project/1/featurestores/1/featuregroups \
+  http://localhost:$PORT/hopsworks-api/api/project/$PROJECTID/featurestores/$FEATURESTOREID/featuregroups \
   -H 'Cache-Control: no-cache' \
   -H 'Content-Type: application/json' \
   -H 'Postman-Token: a91e2f27-8088-4b24-bb17-5c5c0f531a94' \
@@ -543,7 +545,7 @@ curl -b cookie.txt -X POST \
 ((JOBID++))
 
 curl -b cookie.txt -X POST \
-  http://localhost:$PORT/hopsworks-api/api/project/1/featurestores/1/featuregroups \
+  http://localhost:$PORT/hopsworks-api/api/project/$PROJECTID/featurestores/$FEATURESTOREID/featuregroups \
   -H 'Cache-Control: no-cache' \
   -H 'Content-Type: application/json' \
   -H 'Postman-Token: a91e2f27-8088-4b24-bb17-5c5c0f531a94' \
@@ -595,7 +597,7 @@ curl -b cookie.txt -X POST \
 ((JOBID++))
 
 curl -b cookie.txt -X POST \
-  http://localhost:$PORT/hopsworks-api/api/project/1/featurestores/1/featuregroups \
+  http://localhost:$PORT/hopsworks-api/api/project/$PROJECTID/featurestores/$FEATURESTOREID/featuregroups \
   -H 'Cache-Control: no-cache' \
   -H 'Content-Type: application/json' \
   -H 'Postman-Token: a91e2f27-8088-4b24-bb17-5c5c0f531a94' \
@@ -647,7 +649,7 @@ curl -b cookie.txt -X POST \
 ((JOBID++))
 
 curl -b cookie.txt -X POST \
-  http://localhost:$PORT/hopsworks-api/api/project/1/featurestores/1/featuregroups \
+  http://localhost:$PORT/hopsworks-api/api/project/$PROJECTID/featurestores/$FEATURESTOREID/featuregroups \
   -H 'Cache-Control: no-cache' \
   -H 'Content-Type: application/json' \
   -H 'Postman-Token: a91e2f27-8088-4b24-bb17-5c5c0f531a94' \
@@ -681,7 +683,7 @@ curl -b cookie.txt -X POST \
 ((JOBID++))
 
 curl -b cookie.txt -X POST \
-  http://localhost:$PORT/hopsworks-api/api/project/1/featurestores/1/featuregroups \
+  http://localhost:$PORT/hopsworks-api/api/project/$PROJECTID/featurestores/$FEATURESTOREID/featuregroups \
   -H 'Cache-Control: no-cache' \
   -H 'Content-Type: application/json' \
   -H 'Postman-Token: a91e2f27-8088-4b24-bb17-5c5c0f531a94' \
