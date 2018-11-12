@@ -30,7 +30,7 @@ object CountryLookup {
     log.info("Schema: \n" + trxCountriesWithIndex.printSchema)
     val featurestore = Hops.getProjectFeaturestore
     log.info(s"Inserting into featuregroup $featuregroupName version $version in featurestore $featurestore")
-    Hops.insertIntoFeaturegroup(trxCountriesWithIndex, spark, featuregroupName, featurestore, version)
+    Hops.insertIntoFeaturegroup(trxCountriesWithIndex, spark, featuregroupName, featurestore, version, "overwrite")
     log.info(s"Insertion into featuregroup $featuregroupName complete")
   }
 }

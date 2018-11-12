@@ -30,7 +30,7 @@ object RuleNameLookup {
     log.info("Schema: \n" + ruleNamesWithIndex.printSchema)
     val featurestore = Hops.getProjectFeaturestore
     log.info(s"Inserting into featuregroup $featuregroupName version $version in featurestore $featurestore")
-    Hops.insertIntoFeaturegroup(ruleNamesWithIndex, spark, featuregroupName, featurestore, version)
+    Hops.insertIntoFeaturegroup(ruleNamesWithIndex, spark, featuregroupName, featurestore, version, "overwrite")
     log.info(s"Insertion into featuregroup $featuregroupName complete")
   }
 }

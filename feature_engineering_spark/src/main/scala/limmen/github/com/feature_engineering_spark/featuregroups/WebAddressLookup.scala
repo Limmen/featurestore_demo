@@ -30,7 +30,7 @@ object WebAddressLookup {
     log.info("Schema: \n" + webAddressesWithIndex.printSchema)
     val featurestore = Hops.getProjectFeaturestore
     log.info(s"Inserting into featuregroup $featuregroupName version $version in featurestore $featurestore")
-    Hops.insertIntoFeaturegroup(webAddressesWithIndex, spark, featuregroupName, featurestore, version)
+    Hops.insertIntoFeaturegroup(webAddressesWithIndex, spark, featuregroupName, featurestore, version, "overwrite")
     log.info(s"Insertion into featuregroup $featuregroupName complete")
   }
 }

@@ -85,7 +85,7 @@ object TrxGraphSummaryFeatures {
     }).toDS
     log.info(s"Features: \n: ${features.show(5)}")
     log.info(s"Inserting into featuregroup $featuregroupName version $version in featurestore $featurestore")
-    Hops.insertIntoFeaturegroup(features.toDF, spark, featuregroupName, featurestore, version)
+    Hops.insertIntoFeaturegroup(features.toDF, spark, featuregroupName, featurestore, version, "overwrite")
     log.info(s"Insertion into featuregroup $featuregroupName complete")
   }
 }

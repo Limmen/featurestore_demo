@@ -72,7 +72,7 @@ object AlertFeatures {
     log.info(parsedDs.show(5))
     log.info("Schema: \n" + parsedDs.printSchema)
     log.info(s"Inserting into featuregroup $featuregroupName version $version in featurestore $featurestore")
-    Hops.insertIntoFeaturegroup(parsedDs.toDF, spark, featuregroupName, featurestore, version)
+    Hops.insertIntoFeaturegroup(parsedDs.toDF, spark, featuregroupName, featurestore, version, "overwrite")
     log.info(s"Insertion into featuregroup $featuregroupName complete")
   }
 }

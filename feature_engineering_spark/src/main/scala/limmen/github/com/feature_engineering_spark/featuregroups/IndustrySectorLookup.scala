@@ -29,7 +29,7 @@ object IndustrySectorLookup {
     log.info("Schema: \n" + industrySectorsWithIndex.printSchema)
     val featurestore = Hops.getProjectFeaturestore
     log.info(s"Inserting into featuregroup $featuregroupName version $version in featurestore $featurestore")
-    Hops.insertIntoFeaturegroup(industrySectorsWithIndex, spark, featuregroupName, featurestore, version)
+    Hops.insertIntoFeaturegroup(industrySectorsWithIndex, spark, featuregroupName, featurestore, version, "overwrite")
     log.info(s"Insertion into featuregroup $featuregroupName complete")
   }
 }
