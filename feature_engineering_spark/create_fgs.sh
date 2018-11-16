@@ -7,18 +7,20 @@ FEATURESTOREID=$4
 JOBID=$5
 
 #login
-curl -c cookie.txt -X POST \
+TOKEN=$(curl -i -X POST \
   http://localhost:$PORT/hopsworks-api/api/auth/login \
   -H 'Cache-Control: no-cache' \
+  -H 'Accept: application/json' \
   -H 'Content-Type: application/x-www-form-urlencoded' \
   -H 'Postman-Token: f4cba844-380b-4110-900f-571a41ab542e' \
-  -d 'email=admin%40kth.se&password=admin'
+  -d 'email=admin%40kth.se&password=admin' | grep "Authorization: Bearer")
 
-curl -b cookie.txt -X POST \
+curl -X POST \
   http://localhost:$PORT/hopsworks-api/api/project/$PROJECTID/featurestores/$FEATURESTOREID/featuregroups \
   -H 'Cache-Control: no-cache' \
   -H 'Content-Type: application/json' \
   -H 'Postman-Token: a91e2f27-8088-4b24-bb17-5c5c0f531a94' \
+  -H "${TOKEN}" \
   -d '{
 	"featuregroupName": "customer_type_lookup",
 	"inputDataset": "hdfs:///Projects/'$PROJECT'/sample_data/kyc.csv",
@@ -44,11 +46,12 @@ curl -b cookie.txt -X POST \
 ((JOBID++))
 
 
-curl -b cookie.txt -X POST \
+curl -X POST \
   http://localhost:$PORT/hopsworks-api/api/project/$PROJECTID/featurestores/$FEATURESTOREID/featuregroups \
   -H 'Cache-Control: no-cache' \
   -H 'Content-Type: application/json' \
   -H 'Postman-Token: a91e2f27-8088-4b24-bb17-5c5c0f531a94' \
+  -H "${TOKEN}" \
   -d '{
 	"featuregroupName": "pep_lookup",
 	"inputDataset": "hdfs:///Projects/'$PROJECT'/sample_data/kyc.csv",
@@ -73,11 +76,12 @@ curl -b cookie.txt -X POST \
 
 ((JOBID++))
 
-curl -b cookie.txt -X POST \
+curl -X POST \
   http://localhost:$PORT/hopsworks-api/api/project/$PROJECTID/featurestores/$FEATURESTOREID/featuregroups \
   -H 'Cache-Control: no-cache' \
   -H 'Content-Type: application/json' \
   -H 'Postman-Token: a91e2f27-8088-4b24-bb17-5c5c0f531a94' \
+  -H "${TOKEN}" \
   -d '{
 	"featuregroupName": "gender_lookup",
 	"inputDataset": "hdfs:///Projects/'$PROJECT'/sample_data/kyc.csv",
@@ -102,11 +106,12 @@ curl -b cookie.txt -X POST \
 
 ((JOBID++))
 
-curl -b cookie.txt -X POST \
+curl -X POST \
   http://localhost:$PORT/hopsworks-api/api/project/$PROJECTID/featurestores/$FEATURESTOREID/featuregroups \
   -H 'Cache-Control: no-cache' \
   -H 'Content-Type: application/json' \
   -H 'Postman-Token: a91e2f27-8088-4b24-bb17-5c5c0f531a94' \
+  -H "${TOKEN}" \
   -d '{
 	"featuregroupName": "trx_type_lookup",
 	"inputDataset": "hdfs:///Projects/'$PROJECT'/sample_data/trx.csv",
@@ -131,11 +136,12 @@ curl -b cookie.txt -X POST \
 
 ((JOBID++))
 
-curl -b cookie.txt -X POST \
+curl -X POST \
   http://localhost:$PORT/hopsworks-api/api/project/$PROJECTID/featurestores/$FEATURESTOREID/featuregroups \
   -H 'Cache-Control: no-cache' \
   -H 'Content-Type: application/json' \
   -H 'Postman-Token: a91e2f27-8088-4b24-bb17-5c5c0f531a94' \
+  -H "${TOKEN}" \
   -d '{
 	"featuregroupName": "country_lookup",
 	"inputDataset": "hdfs:///Projects/'$PROJECT'/sample_data/trx.csv",
@@ -160,11 +166,12 @@ curl -b cookie.txt -X POST \
 
 ((JOBID++))
 
-curl -b cookie.txt -X POST \
+curl -X POST \
   http://localhost:$PORT/hopsworks-api/api/project/$PROJECTID/featurestores/$FEATURESTOREID/featuregroups \
   -H 'Cache-Control: no-cache' \
   -H 'Content-Type: application/json' \
   -H 'Postman-Token: a91e2f27-8088-4b24-bb17-5c5c0f531a94' \
+  -H "${TOKEN}" \
   -d '{
 	"featuregroupName": "industry_sector_lookup",
 	"inputDataset": "hdfs:///Projects/'$PROJECT'/sample_data/hipo.csv",
@@ -189,11 +196,12 @@ curl -b cookie.txt -X POST \
 
 ((JOBID++))
 
-curl -b cookie.txt -X POST \
+curl -X POST \
   http://localhost:$PORT/hopsworks-api/api/project/$PROJECTID/featurestores/$FEATURESTOREID/featuregroups \
   -H 'Cache-Control: no-cache' \
   -H 'Content-Type: application/json' \
   -H 'Postman-Token: a91e2f27-8088-4b24-bb17-5c5c0f531a94' \
+  -H "${TOKEN}" \
   -d '{
 	"featuregroupName": "alert_type_lookup",
 	"inputDataset": "hdfs:///Projects/'$PROJECT'/sample_data/alerts.csv",
@@ -218,11 +226,12 @@ curl -b cookie.txt -X POST \
 
 ((JOBID++))
 
-curl -b cookie.txt -X POST \
+curl -X POST \
   http://localhost:$PORT/hopsworks-api/api/project/$PROJECTID/featurestores/$FEATURESTOREID/featuregroups \
   -H 'Cache-Control: no-cache' \
   -H 'Content-Type: application/json' \
   -H 'Postman-Token: a91e2f27-8088-4b24-bb17-5c5c0f531a94' \
+  -H "${TOKEN}" \
   -d '{
 	"featuregroupName": "rule_name_lookup",
 	"inputDataset": "hdfs:///Projects/'$PROJECT'/sample_data/alerts.csv",
@@ -247,11 +256,12 @@ curl -b cookie.txt -X POST \
 
 ((JOBID++))
 
-curl -b cookie.txt -X POST \
+curl -X POST \
   http://localhost:$PORT/hopsworks-api/api/project/$PROJECTID/featurestores/$FEATURESTOREID/featuregroups \
   -H 'Cache-Control: no-cache' \
   -H 'Content-Type: application/json' \
   -H 'Postman-Token: a91e2f27-8088-4b24-bb17-5c5c0f531a94' \
+  -H "${TOKEN}" \
   -d '{
 	"featuregroupName": "web_address_lookup",
 	"inputDataset": "hdfs:///Projects/'$PROJECT'/sample_data/web_logs.csv",
@@ -276,11 +286,12 @@ curl -b cookie.txt -X POST \
 
 ((JOBID++))
 
-curl -b cookie.txt -X POST \
+curl -X POST \
   http://localhost:$PORT/hopsworks-api/api/project/$PROJECTID/featurestores/$FEATURESTOREID/featuregroups \
   -H 'Cache-Control: no-cache' \
   -H 'Content-Type: application/json' \
   -H 'Postman-Token: a91e2f27-8088-4b24-bb17-5c5c0f531a94' \
+  -H "${TOKEN}" \
   -d '{
 	"featuregroupName": "browser_action_lookup",
 	"inputDataset": "hdfs:///Projects/'$PROJECT'/sample_data/web_logs.csv",
@@ -305,11 +316,12 @@ curl -b cookie.txt -X POST \
 
 ((JOBID++))
 
-curl -b cookie.txt -X POST \
+curl -X POST \
   http://localhost:$PORT/hopsworks-api/api/project/$PROJECTID/featurestores/$FEATURESTOREID/featuregroups \
   -H 'Cache-Control: no-cache' \
   -H 'Content-Type: application/json' \
   -H 'Postman-Token: a91e2f27-8088-4b24-bb17-5c5c0f531a94' \
+  -H "${TOKEN}" \
   -d '{
 	"featuregroupName": "demographic_features",
 	"inputDataset": "hdfs:///Projects/'$PROJECT'/sample_data/kyc.csv",
@@ -371,11 +383,12 @@ curl -b cookie.txt -X POST \
 ((JOBID++))
 
 
-curl -b cookie.txt -X POST \
+curl -X POST \
   http://localhost:$PORT/hopsworks-api/api/project/$PROJECTID/featurestores/$FEATURESTOREID/featuregroups \
   -H 'Cache-Control: no-cache' \
   -H 'Content-Type: application/json' \
   -H 'Postman-Token: a91e2f27-8088-4b24-bb17-5c5c0f531a94' \
+  -H "${TOKEN}" \
   -d '{
 	"featuregroupName": "trx_graph_edge_list",
 	"inputDataset": "hdfs:///Projects/'$PROJECT'/sample_data/trx.csv",
@@ -406,11 +419,12 @@ curl -b cookie.txt -X POST \
 
 ((JOBID++))
 
-curl -b cookie.txt -X POST \
+curl -X POST \
   http://localhost:$PORT/hopsworks-api/api/project/$PROJECTID/featurestores/$FEATURESTOREID/featuregroups \
   -H 'Cache-Control: no-cache' \
   -H 'Content-Type: application/json' \
   -H 'Postman-Token: a91e2f27-8088-4b24-bb17-5c5c0f531a94' \
+  -H "${TOKEN}" \
   -d '{
 	"featuregroupName": "trx_graph_summary_features",
 	"inputDataset": "hdfs:///Projects/'$PROJECT'/sample_data/trx.csv",
@@ -441,11 +455,12 @@ curl -b cookie.txt -X POST \
 
 ((JOBID++))
 
-curl -b cookie.txt -X POST \
+curl -X POST \
   http://localhost:$PORT/hopsworks-api/api/project/$PROJECTID/featurestores/$FEATURESTOREID/featuregroups \
   -H 'Cache-Control: no-cache' \
   -H 'Content-Type: application/json' \
   -H 'Postman-Token: a91e2f27-8088-4b24-bb17-5c5c0f531a94' \
+  -H "${TOKEN}" \
   -d '{
 	"featuregroupName": "trx_features",
 	"inputDataset": "hdfs:///Projects/'$PROJECT'/sample_data/trx.csv",
@@ -512,11 +527,12 @@ curl -b cookie.txt -X POST \
 
 ((JOBID++))
 
-curl -b cookie.txt -X POST \
+curl -X POST \
   http://localhost:$PORT/hopsworks-api/api/project/$PROJECTID/featurestores/$FEATURESTOREID/featuregroups \
   -H 'Cache-Control: no-cache' \
   -H 'Content-Type: application/json' \
   -H 'Postman-Token: a91e2f27-8088-4b24-bb17-5c5c0f531a94' \
+  -H "${TOKEN}" \
   -d '{
 	"featuregroupName": "trx_summary_features",
 	"inputDataset": "hdfs:///Projects/'$PROJECT'/sample_data/trx.csv",
@@ -559,11 +575,12 @@ curl -b cookie.txt -X POST \
 
 ((JOBID++))
 
-curl -b cookie.txt -X POST \
+curl -X POST \
   http://localhost:$PORT/hopsworks-api/api/project/$PROJECTID/featurestores/$FEATURESTOREID/featuregroups \
   -H 'Cache-Control: no-cache' \
   -H 'Content-Type: application/json' \
   -H 'Postman-Token: a91e2f27-8088-4b24-bb17-5c5c0f531a94' \
+  -H "${TOKEN}" \
   -d '{
 	"featuregroupName": "hipo_features",
 	"inputDataset": "hdfs:///Projects/'$PROJECT'/sample_data/hipo.csv",
@@ -612,11 +629,12 @@ curl -b cookie.txt -X POST \
 
 ((JOBID++))
 
-curl -b cookie.txt -X POST \
+curl -X POST \
   http://localhost:$PORT/hopsworks-api/api/project/$PROJECTID/featurestores/$FEATURESTOREID/featuregroups \
   -H 'Cache-Control: no-cache' \
   -H 'Content-Type: application/json' \
   -H 'Postman-Token: a91e2f27-8088-4b24-bb17-5c5c0f531a94' \
+  -H "${TOKEN}" \
   -d '{
 	"featuregroupName": "alert_features",
 	"inputDataset": "hdfs:///Projects/'$PROJECT'/sample_data/alerts.csv",
@@ -665,11 +683,12 @@ curl -b cookie.txt -X POST \
 
 ((JOBID++))
 
-curl -b cookie.txt -X POST \
+curl -X POST \
   http://localhost:$PORT/hopsworks-api/api/project/$PROJECTID/featurestores/$FEATURESTOREID/featuregroups \
   -H 'Cache-Control: no-cache' \
   -H 'Content-Type: application/json' \
   -H 'Postman-Token: a91e2f27-8088-4b24-bb17-5c5c0f531a94' \
+  -H "${TOKEN}" \
   -d '{
 	"featuregroupName": "police_report_features",
 	"inputDataset": "hdfs:///Projects/'$PROJECT'/sample_data/police_reports.csv",
@@ -700,11 +719,12 @@ curl -b cookie.txt -X POST \
 
 ((JOBID++))
 
-curl -b cookie.txt -X POST \
+curl -X POST \
   http://localhost:$PORT/hopsworks-api/api/project/$PROJECTID/featurestores/$FEATURESTOREID/featuregroups \
   -H 'Cache-Control: no-cache' \
   -H 'Content-Type: application/json' \
   -H 'Postman-Token: a91e2f27-8088-4b24-bb17-5c5c0f531a94' \
+  -H "${TOKEN}" \
   -d '{
 	"featuregroupName": "web_logs_features",
 	"inputDataset": "hdfs:///Projects/'$PROJECT'/sample_data/web_logs.csv",
