@@ -37,7 +37,8 @@ curl -b cookie.txt -X POST \
 			"primary": false
 		}
 		],
-	"description": "lookup table for id to customer type, used when converting from numeric to categrorical representation and vice verse"
+	"description": "lookup table for id to customer type, used when converting from numeric to categrorical representation and vice verse",
+        "version": 1
 }'
 
 ((JOBID++))
@@ -66,7 +67,8 @@ curl -b cookie.txt -X POST \
 			"primary": false
 		}
 		],
-	"description": "lookup table for id to pep type, used when converting from numeric to categrorical representation and vice verse"
+	"description": "lookup table for id to pep type, used when converting from numeric to categrorical representation and vice verse",
+	"version": 1
 }'
 
 ((JOBID++))
@@ -94,7 +96,8 @@ curl -b cookie.txt -X POST \
 			"primary": false
 		}
 		],
-	"description": "lookup table for id to gender type, used when converting from numeric to categrorical representation and vice verse"
+	"description": "lookup table for id to gender type, used when converting from numeric to categrorical representation and vice verse",
+	"version": 1
 }'
 
 ((JOBID++))
@@ -122,7 +125,8 @@ curl -b cookie.txt -X POST \
 			"primary": false
 		}
 		],
-	"description": "lookup table for id to trx_type type, used when converting from numeric to categorical representation and vice verse"
+	"description": "lookup table for id to trx_type type, used when converting from numeric to categorical representation and vice verse",
+	"version": 1
 }'
 
 ((JOBID++))
@@ -150,7 +154,8 @@ curl -b cookie.txt -X POST \
 			"primary": false
 		}
 		],
-	"description": "lookup table for id to country, used when converting from numeric to categorical representation and vice verse"
+	"description": "lookup table for id to country, used when converting from numeric to categorical representation and vice verse",
+	"version": 1
 }'
 
 ((JOBID++))
@@ -178,7 +183,8 @@ curl -b cookie.txt -X POST \
 			"primary": false
 		}
 		],
-	"description": "lookup table for id to industry_sector, used when converting from numeric to categorical representation and vice verse"
+	"description": "lookup table for id to industry_sector, used when converting from numeric to categorical representation and vice verse",
+	"version": 1
 }'
 
 ((JOBID++))
@@ -206,7 +212,8 @@ curl -b cookie.txt -X POST \
 			"primary": false
 		}
 		],
-	"description": "lookup table for id to alert_type, used when converting from numeric to categorical representation and vice verse"
+	"description": "lookup table for id to alert_type, used when converting from numeric to categorical representation and vice verse",
+	"version": 1
 }'
 
 ((JOBID++))
@@ -234,7 +241,8 @@ curl -b cookie.txt -X POST \
 			"primary": false
 		}
 		],
-	"description": "lookup table for id to rule_name of an alert, used when converting from numeric to categorical representation and vice verse"
+	"description": "lookup table for id to rule_name of an alert, used when converting from numeric to categorical representation and vice verse",
+	"version": 1
 }'
 
 ((JOBID++))
@@ -262,7 +270,8 @@ curl -b cookie.txt -X POST \
 			"primary": false
 		}
 		],
-	"description": "lookup table for id to web_address, used when converting from numeric to categorical representation and vice verse"
+	"description": "lookup table for id to web_address, used when converting from numeric to categorical representation and vice verse",
+	"version": 1
 }'
 
 ((JOBID++))
@@ -290,7 +299,8 @@ curl -b cookie.txt -X POST \
 			"primary": false
 		}
 		],
-	"description": "lookup table for id to browser_action, used when converting from numeric to categorical representation and vice verse"
+	"description": "lookup table for id to browser_action, used when converting from numeric to categorical representation and vice verse",
+	"version": 1
 }'
 
 ((JOBID++))
@@ -354,7 +364,8 @@ curl -b cookie.txt -X POST \
 			"primary": false
 		}
 		],
-	"description": "preprocessed features from the KYC table"
+	"description": "preprocessed features from the KYC table",
+	"version": 1
 }'
 
 ((JOBID++))
@@ -389,7 +400,8 @@ curl -b cookie.txt -X POST \
 			"primary": false
 		}
 		],
-	"description": "The edge list of the transactions graph"
+	"description": "The edge list of the transactions graph",
+	"version": 1
 }'
 
 ((JOBID++))
@@ -423,7 +435,8 @@ curl -b cookie.txt -X POST \
 			"primary": false
 		}
 		],
-	"description": "Contain aggregate graph features of a customers transactions"
+	"description": "Contain aggregate graph features of a customers transactions",
+	"version": 1
 }'
 
 ((JOBID++))
@@ -493,7 +506,8 @@ curl -b cookie.txt -X POST \
 			"primary": false
 		}
 		],
-	"description": "Features for single transactions"
+	"description": "Features for single transactions",
+	"version": 1
 }'
 
 ((JOBID++))
@@ -539,7 +553,8 @@ curl -b cookie.txt -X POST \
 			"primary": false
 		}
 		],
-	"description": "Aggregate of transactions for customers"
+	"description": "Aggregate of transactions for customers",
+	"version": 1
 }'
 
 ((JOBID++))
@@ -591,7 +606,8 @@ curl -b cookie.txt -X POST \
 			"primary": false
 		}
 		],
-	"description": "Features on corporate customers"
+	"description": "Features on corporate customers",
+	"version": 1
 }'
 
 ((JOBID++))
@@ -643,7 +659,8 @@ curl -b cookie.txt -X POST \
 			"primary": false
 		}
 		],
-	"description": "Features from transaction alerts"
+	"description": "Features from transaction alerts",
+	"version": 1
 }'
 
 ((JOBID++))
@@ -677,7 +694,8 @@ curl -b cookie.txt -X POST \
 			"primary": true
 		}
 		],
-	"description": "Features on customers reported to the police"
+	"description": "Features on customers reported to the police",
+	"version": 1
 }'
 
 ((JOBID++))
@@ -723,7 +741,8 @@ curl -b cookie.txt -X POST \
 			"primary": false
 		}
 		],
-	"description": "Features on web logs recording customers activity with the internet bank"
+	"description": "Features on web logs recording customers activity with the internet bank",
+	"version": 1
 }'
 
 ((JOBID++))
