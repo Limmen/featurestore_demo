@@ -2,7 +2,7 @@
 
 ## Usage
 
-- First, build a VM with featurestore support, 
+- First, build a VM with featurestore support,
 - then create a project with the featurestore service enabled.
 - run `./run.sh ports` to find which exported port hopsworks is running on
 - check inside the project what id it got and what id it's featurestore got
@@ -28,3 +28,10 @@ e.g:
 ```sh
 $ ./feature_engineering_spark/create_fgs.sh 55354 "hopsworksdemo" 8 3 1
 ```
+
+## Model
+
+It will create the following feature groups
+
+Inline-style:
+![model](./model.png "Model")
