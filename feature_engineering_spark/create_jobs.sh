@@ -431,8 +431,7 @@ curl -X POST \
 	"spark.dynamicAllocation.maxExecutors":1500,
 	"spark.dynamicAllocation.minExecutors":1,
 	"spark.executor.instances":1,
-	"spark.dynamicAllocation.initialExecutors
-":1,
+	"spark.dynamicAllocation.initialExecutors":1,
 	"spark.executor.gpus":0,
 	"appName":"hipo_features_job",
 	"args":"--input \"hdfs:///Projects/'$PROJECT'/sample_data/hipo.csv\" --partitions 1 --version 1 --cluster --featuregroup \"hipo_features\""

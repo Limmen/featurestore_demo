@@ -43,7 +43,7 @@ curl -X POST \
         "version": 1,
 	"featureCorrelationMatrixBase64": null,
 	"descriptiveStatistics": null,
-	"featuresHistogram": null,
+	"featuresHistogram": null
 }'
 
 ((JOBID++))
