@@ -41,9 +41,10 @@ curl -X POST \
 		],
 	"description": "lookup table for id to customer type, used when converting from numeric to categrorical representation and vice verse",
         "version": 1,
-	"featureCorrelationMatrixBase64": null,
+	"featureCorrelationMatrix": null,
 	"descriptiveStatistics": null,
-	"featuresHistogram": null
+	"featuresHistogram": null,
+	"clusterAnalysis": null
 }'
 
 ((JOBID++))
@@ -74,9 +75,10 @@ curl -X POST \
 		}
 		],
 	"description": "lookup table for id to pep type, used when converting from numeric to categrorical representation and vice verse",
-	"featureCorrelationMatrixBase64": null,
+	"featureCorrelationMatrix": null,
 	"descriptiveStatistics": null,
 	"featuresHistogram": null,
+	"clusterAnalysis": null,
 	"version": 1
 }'
 
@@ -107,9 +109,10 @@ curl -X POST \
 		}
 		],
 	"description": "lookup table for id to gender type, used when converting from numeric to categrorical representation and vice verse",
-	"featureCorrelationMatrixBase64": null,
+	"featureCorrelationMatrix": null,
 	"descriptiveStatistics": null,
 	"featuresHistogram": null,
+	"clusterAnalysis": null,
 	"version": 1
 }'
 
@@ -140,9 +143,10 @@ curl -X POST \
 		}
 		],
 	"description": "lookup table for id to trx_type type, used when converting from numeric to categorical representation and vice verse",
-	"featureCorrelationMatrixBase64": null,
+	"featureCorrelationMatrix": null,
 	"descriptiveStatistics": null,
 	"featuresHistogram": null,
+	"clusterAnalysis": null,
 	"version": 1
 }'
 
@@ -173,9 +177,10 @@ curl -X POST \
 		}
 		],
 	"description": "lookup table for id to country, used when converting from numeric to categorical representation and vice verse",
-	"featureCorrelationMatrixBase64": null,
+	"featureCorrelationMatrix": null,
 	"descriptiveStatistics": null,
 	"featuresHistogram": null,
+	"clusterAnalysis": null,
 	"version": 1
 }'
 
@@ -206,9 +211,10 @@ curl -X POST \
 		}
 		],
 	"description": "lookup table for id to industry_sector, used when converting from numeric to categorical representation and vice verse",
-	"featureCorrelationMatrixBase64": null,
+	"featureCorrelationMatrix": null,
 	"descriptiveStatistics": null,
 	"featuresHistogram": null,
+	"clusterAnalysis": null,
 	"version": 1
 }'
 
@@ -239,10 +245,11 @@ curl -X POST \
 		}
 		],
 	"description": "lookup table for id to alert_type, used when converting from numeric to categorical representation and vice verse",
-	"featureCorrelationMatrixBase64": null,
-	"featureCorrelationMatrixBase64": null,
+	"featureCorrelationMatrix": null,
+	"featureCorrelationMatrix": null,
 	"descriptiveStatistics": null,
 	"featuresHistogram": null,
+	"clusterAnalysis": null,
 	"version": 1
 }'
 
@@ -273,10 +280,11 @@ curl -X POST \
 		}
 		],
 	"description": "lookup table for id to rule_name of an alert, used when converting from numeric to categorical representation and vice verse",
-	"featureCorrelationMatrixBase64": null,
-	"featureCorrelationMatrixBase64": null,
+	"featureCorrelationMatrix": null,
+	"featureCorrelationMatrix": null,
 	"descriptiveStatistics": null,
 	"featuresHistogram": null,
+	"clusterAnalysis": null,
 	"version": 1
 }'
 
@@ -307,9 +315,10 @@ curl -X POST \
 		}
 		],
 	"description": "lookup table for id to web_address, used when converting from numeric to categorical representation and vice verse",
-	"featureCorrelationMatrixBase64": null,
+	"featureCorrelationMatrix": null,
 	"descriptiveStatistics": null,
 	"featuresHistogram": null,
+	"clusterAnalysis": null,
 	"version": 1
 }'
 
@@ -340,9 +349,10 @@ curl -X POST \
 		}
 		],
 	"description": "lookup table for id to browser_action, used when converting from numeric to categorical representation and vice verse",
-	"featureCorrelationMatrixBase64": null,
+	"featureCorrelationMatrix": null,
 	"descriptiveStatistics": null,
 	"featuresHistogram": null,
+	"clusterAnalysis": null,
 	"version": 1
 }'
 
@@ -409,9 +419,10 @@ curl -X POST \
 		}
 		],
 	"description": "preprocessed features from the KYC table",
-	"featureCorrelationMatrixBase64": null,
+	"featureCorrelationMatrix": null,
 	"descriptiveStatistics": null,
 	"featuresHistogram": null,
+	"clusterAnalysis": null,
 	"version": 1
 }'
 
@@ -449,9 +460,10 @@ curl -X POST \
 		}
 		],
 	"description": "The edge list of the transactions graph",
-	"featureCorrelationMatrixBase64": null,
+	"featureCorrelationMatrix": null,
 	"descriptiveStatistics": null,
 	"featuresHistogram": null,
+	"clusterAnalysis": null,
 	"version": 1
 }'
 
@@ -488,9 +500,10 @@ curl -X POST \
 		}
 		],
 	"description": "Contain aggregate graph features of a customers transactions",
-	"featureCorrelationMatrixBase64": null,
+	"featureCorrelationMatrix": null,
 	"descriptiveStatistics": null,
 	"featuresHistogram": null,
+	"clusterAnalysis": null,
 	"version": 1
 }'
 
@@ -563,9 +576,10 @@ curl -X POST \
 		}
 		],
 	"description": "Features for single transactions",
-	"featureCorrelationMatrixBase64": null,
+	"featureCorrelationMatrix": null,
 	"descriptiveStatistics": null,
 	"featuresHistogram": null,
+	"clusterAnalysis": null,
 	"version": 1
 }'
 
@@ -614,9 +628,10 @@ curl -X POST \
 		}
 		],
 	"description": "Aggregate of transactions for customers",
-	"featureCorrelationMatrixBase64": null,
+	"featureCorrelationMatrix": null,
 	"descriptiveStatistics": null,
 	"featuresHistogram": null,
+	"clusterAnalysis": null,
 	"version": 1
 }'
 
@@ -671,9 +686,10 @@ curl -X POST \
 		}
 		],
 	"description": "Features on corporate customers",
-	"featureCorrelationMatrixBase64": null,
+	"featureCorrelationMatrix": null,
 	"descriptiveStatistics": null,
 	"featuresHistogram": null,
+	"clusterAnalysis": null,
 	"version": 1
 }'
 
@@ -728,9 +744,10 @@ curl -X POST \
 		}
 		],
 	"description": "Features from transaction alerts",
-	"featureCorrelationMatrixBase64": null,
+	"featureCorrelationMatrix": null,
 	"descriptiveStatistics": null,
 	"featuresHistogram": null,
+	"clusterAnalysis": null,
 	"version": 1
 }'
 
@@ -767,9 +784,10 @@ curl -X POST \
 		}
 		],
 	"description": "Features on customers reported to the police",
-	"featureCorrelationMatrixBase64": null,
+	"featureCorrelationMatrix": null,
 	"descriptiveStatistics": null,
 	"featuresHistogram": null,
+	"clusterAnalysis": null,
 	"version": 1
 }'
 
@@ -818,9 +836,10 @@ curl -X POST \
 		}
 		],
 	"description": "Features on web logs recording customers activity with the internet bank",
-	"featureCorrelationMatrixBase64": null,
+	"featureCorrelationMatrix": null,
 	"descriptiveStatistics": null,
 	"featuresHistogram": null,
+	"clusterAnalysis": null,
 	"version": 1
 }'
 
