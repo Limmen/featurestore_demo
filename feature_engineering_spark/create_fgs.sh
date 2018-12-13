@@ -22,7 +22,7 @@ curl -X POST \
   -H 'Postman-Token: a91e2f27-8088-4b24-bb17-5c5c0f531a94' \
   -H "${TOKEN}" \
   -d '{
-	"featuregroupName": "customer_type_lookup",
+	"name": "customer_type_lookup",
 	"inputDataset": "hdfs:///Projects/'$PROJECT'/sample_data/kyc.csv",
 	"jobId": '$JOBID',
 	"features": [
@@ -57,7 +57,7 @@ curl -X POST \
   -H 'Postman-Token: a91e2f27-8088-4b24-bb17-5c5c0f531a94' \
   -H "${TOKEN}" \
   -d '{
-	"featuregroupName": "pep_lookup",
+	"name": "pep_lookup",
 	"inputDataset": "hdfs:///Projects/'$PROJECT'/sample_data/kyc.csv",
 	"jobId": '$JOBID',
 	"features": [
@@ -91,7 +91,7 @@ curl -X POST \
   -H 'Postman-Token: a91e2f27-8088-4b24-bb17-5c5c0f531a94' \
   -H "${TOKEN}" \
   -d '{
-	"featuregroupName": "gender_lookup",
+	"name": "gender_lookup",
 	"inputDataset": "hdfs:///Projects/'$PROJECT'/sample_data/kyc.csv",
 	"jobId": '$JOBID',
 	"features": [
@@ -125,7 +125,7 @@ curl -X POST \
   -H 'Postman-Token: a91e2f27-8088-4b24-bb17-5c5c0f531a94' \
   -H "${TOKEN}" \
   -d '{
-	"featuregroupName": "trx_type_lookup",
+	"name": "trx_type_lookup",
 	"inputDataset": "hdfs:///Projects/'$PROJECT'/sample_data/trx.csv",
 	"jobId": '$JOBID',
 	"features": [
@@ -159,7 +159,7 @@ curl -X POST \
   -H 'Postman-Token: a91e2f27-8088-4b24-bb17-5c5c0f531a94' \
   -H "${TOKEN}" \
   -d '{
-	"featuregroupName": "country_lookup",
+	"name": "country_lookup",
 	"inputDataset": "hdfs:///Projects/'$PROJECT'/sample_data/trx.csv",
 	"jobId": '$JOBID',
 	"features": [
@@ -193,7 +193,7 @@ curl -X POST \
   -H 'Postman-Token: a91e2f27-8088-4b24-bb17-5c5c0f531a94' \
   -H "${TOKEN}" \
   -d '{
-	"featuregroupName": "industry_sector_lookup",
+	"name": "industry_sector_lookup",
 	"inputDataset": "hdfs:///Projects/'$PROJECT'/sample_data/hipo.csv",
 	"jobId": '$JOBID',
 	"features": [
@@ -227,7 +227,7 @@ curl -X POST \
   -H 'Postman-Token: a91e2f27-8088-4b24-bb17-5c5c0f531a94' \
   -H "${TOKEN}" \
   -d '{
-	"featuregroupName": "alert_type_lookup",
+	"name": "alert_type_lookup",
 	"inputDataset": "hdfs:///Projects/'$PROJECT'/sample_data/alerts.csv",
 	"jobId": '$JOBID',
 	"features": [
@@ -262,7 +262,7 @@ curl -X POST \
   -H 'Postman-Token: a91e2f27-8088-4b24-bb17-5c5c0f531a94' \
   -H "${TOKEN}" \
   -d '{
-	"featuregroupName": "rule_name_lookup",
+	"name": "rule_name_lookup",
 	"inputDataset": "hdfs:///Projects/'$PROJECT'/sample_data/alerts.csv",
 	"jobId": '$JOBID',
 	"features": [
@@ -297,7 +297,7 @@ curl -X POST \
   -H 'Postman-Token: a91e2f27-8088-4b24-bb17-5c5c0f531a94' \
   -H "${TOKEN}" \
   -d '{
-	"featuregroupName": "web_address_lookup",
+	"name": "web_address_lookup",
 	"inputDataset": "hdfs:///Projects/'$PROJECT'/sample_data/web_logs.csv",
 	"jobId": '$JOBID',
 	"features": [
@@ -331,7 +331,7 @@ curl -X POST \
   -H 'Postman-Token: a91e2f27-8088-4b24-bb17-5c5c0f531a94' \
   -H "${TOKEN}" \
   -d '{
-	"featuregroupName": "browser_action_lookup",
+	"name": "browser_action_lookup",
 	"inputDataset": "hdfs:///Projects/'$PROJECT'/sample_data/web_logs.csv",
 	"jobId": '$JOBID',
 	"features": [
@@ -365,7 +365,7 @@ curl -X POST \
   -H 'Postman-Token: a91e2f27-8088-4b24-bb17-5c5c0f531a94' \
   -H "${TOKEN}" \
   -d '{
-	"featuregroupName": "demographic_features",
+	"name": "demographic_features",
 	"inputDataset": "hdfs:///Projects/'$PROJECT'/sample_data/kyc.csv",
 	"jobId": '$JOBID',
 	"features": [
@@ -436,7 +436,7 @@ curl -X POST \
   -H 'Postman-Token: a91e2f27-8088-4b24-bb17-5c5c0f531a94' \
   -H "${TOKEN}" \
   -d '{
-	"featuregroupName": "trx_graph_edge_list",
+	"name": "trx_graph_edge_list",
 	"inputDataset": "hdfs:///Projects/'$PROJECT'/sample_data/trx.csv",
 	"jobId": '$JOBID',
 	"features": [
@@ -476,7 +476,7 @@ curl -X POST \
   -H 'Postman-Token: a91e2f27-8088-4b24-bb17-5c5c0f531a94' \
   -H "${TOKEN}" \
   -d '{
-	"featuregroupName": "trx_graph_summary_features",
+	"name": "trx_graph_summary_features",
 	"inputDataset": "hdfs:///Projects/'$PROJECT'/sample_data/trx.csv",
 	"jobId": '$JOBID',
 	"features": [
@@ -516,7 +516,7 @@ curl -X POST \
   -H 'Postman-Token: a91e2f27-8088-4b24-bb17-5c5c0f531a94' \
   -H "${TOKEN}" \
   -d '{
-	"featuregroupName": "trx_features",
+	"name": "trx_features",
 	"inputDataset": "hdfs:///Projects/'$PROJECT'/sample_data/trx.csv",
 	"jobId": '$JOBID',
 	"features": [
@@ -592,7 +592,7 @@ curl -X POST \
   -H 'Postman-Token: a91e2f27-8088-4b24-bb17-5c5c0f531a94' \
   -H "${TOKEN}" \
   -d '{
-	"featuregroupName": "trx_summary_features",
+	"name": "trx_summary_features",
 	"inputDataset": "hdfs:///Projects/'$PROJECT'/sample_data/trx.csv",
 	"jobId": '$JOBID',
 	"features": [
@@ -644,7 +644,7 @@ curl -X POST \
   -H 'Postman-Token: a91e2f27-8088-4b24-bb17-5c5c0f531a94' \
   -H "${TOKEN}" \
   -d '{
-	"featuregroupName": "hipo_features",
+	"name": "hipo_features",
 	"inputDataset": "hdfs:///Projects/'$PROJECT'/sample_data/hipo.csv",
 	"jobId": '$JOBID',
 	"features": [
@@ -702,7 +702,7 @@ curl -X POST \
   -H 'Postman-Token: a91e2f27-8088-4b24-bb17-5c5c0f531a94' \
   -H "${TOKEN}" \
   -d '{
-	"featuregroupName": "alert_features",
+	"name": "alert_features",
 	"inputDataset": "hdfs:///Projects/'$PROJECT'/sample_data/alerts.csv",
 	"jobId": '$JOBID',
 	"features": [
@@ -760,7 +760,7 @@ curl -X POST \
   -H 'Postman-Token: a91e2f27-8088-4b24-bb17-5c5c0f531a94' \
   -H "${TOKEN}" \
   -d '{
-	"featuregroupName": "police_report_features",
+	"name": "police_report_features",
 	"inputDataset": "hdfs:///Projects/'$PROJECT'/sample_data/police_reports.csv",
 	"jobId": '$JOBID',
 	"features": [
@@ -800,7 +800,7 @@ curl -X POST \
   -H 'Postman-Token: a91e2f27-8088-4b24-bb17-5c5c0f531a94' \
   -H "${TOKEN}" \
   -d '{
-	"featuregroupName": "web_logs_features",
+	"name": "web_logs_features",
 	"inputDataset": "hdfs:///Projects/'$PROJECT'/sample_data/web_logs.csv",
 	"jobId": '$JOBID',
 	"features": [
