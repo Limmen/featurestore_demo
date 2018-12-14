@@ -23,7 +23,7 @@ curl -X POST \
   -H "${TOKEN}" \
   -d '{
 	"name": "customer_type_lookup",
-	"inputDataset": "hdfs:///Projects/'$PROJECT'/sample_data/kyc.csv",
+	"dependencies": ["hdfs:///Projects/'$PROJECT'/sample_data/kyc.csv"],
 	"jobId": '$JOBID',
 	"features": [
 		{
@@ -58,7 +58,7 @@ curl -X POST \
   -H "${TOKEN}" \
   -d '{
 	"name": "pep_lookup",
-	"inputDataset": "hdfs:///Projects/'$PROJECT'/sample_data/kyc.csv",
+	"dependencies": ["hdfs:///Projects/'$PROJECT'/sample_data/kyc.csv"],
 	"jobId": '$JOBID',
 	"features": [
 		{
@@ -92,7 +92,7 @@ curl -X POST \
   -H "${TOKEN}" \
   -d '{
 	"name": "gender_lookup",
-	"inputDataset": "hdfs:///Projects/'$PROJECT'/sample_data/kyc.csv",
+	"dependencies": ["hdfs:///Projects/'$PROJECT'/sample_data/kyc.csv"],
 	"jobId": '$JOBID',
 	"features": [
 		{
@@ -126,7 +126,7 @@ curl -X POST \
   -H "${TOKEN}" \
   -d '{
 	"name": "trx_type_lookup",
-	"inputDataset": "hdfs:///Projects/'$PROJECT'/sample_data/trx.csv",
+	"dependencies": ["hdfs:///Projects/'$PROJECT'/sample_data/trx.csv"],
 	"jobId": '$JOBID',
 	"features": [
 		{
@@ -160,7 +160,7 @@ curl -X POST \
   -H "${TOKEN}" \
   -d '{
 	"name": "country_lookup",
-	"inputDataset": "hdfs:///Projects/'$PROJECT'/sample_data/trx.csv",
+	"dependencies": ["hdfs:///Projects/'$PROJECT'/sample_data/trx.csv"],
 	"jobId": '$JOBID',
 	"features": [
 		{
@@ -194,7 +194,7 @@ curl -X POST \
   -H "${TOKEN}" \
   -d '{
 	"name": "industry_sector_lookup",
-	"inputDataset": "hdfs:///Projects/'$PROJECT'/sample_data/hipo.csv",
+	"dependencies": ["hdfs:///Projects/'$PROJECT'/sample_data/hipo.csv"],
 	"jobId": '$JOBID',
 	"features": [
 		{
@@ -228,7 +228,7 @@ curl -X POST \
   -H "${TOKEN}" \
   -d '{
 	"name": "alert_type_lookup",
-	"inputDataset": "hdfs:///Projects/'$PROJECT'/sample_data/alerts.csv",
+	"dependencies": ["hdfs:///Projects/'$PROJECT'/sample_data/alerts.csv"],
 	"jobId": '$JOBID',
 	"features": [
 		{
@@ -263,7 +263,7 @@ curl -X POST \
   -H "${TOKEN}" \
   -d '{
 	"name": "rule_name_lookup",
-	"inputDataset": "hdfs:///Projects/'$PROJECT'/sample_data/alerts.csv",
+	"dependencies": ["hdfs:///Projects/'$PROJECT'/sample_data/alerts.csv"],
 	"jobId": '$JOBID',
 	"features": [
 		{
@@ -298,7 +298,7 @@ curl -X POST \
   -H "${TOKEN}" \
   -d '{
 	"name": "web_address_lookup",
-	"inputDataset": "hdfs:///Projects/'$PROJECT'/sample_data/web_logs.csv",
+	"dependencies": ["hdfs:///Projects/'$PROJECT'/sample_data/web_logs.csv"],
 	"jobId": '$JOBID',
 	"features": [
 		{
@@ -332,7 +332,7 @@ curl -X POST \
   -H "${TOKEN}" \
   -d '{
 	"name": "browser_action_lookup",
-	"inputDataset": "hdfs:///Projects/'$PROJECT'/sample_data/web_logs.csv",
+	"dependencies": ["hdfs:///Projects/'$PROJECT'/sample_data/web_logs.csv"],
 	"jobId": '$JOBID',
 	"features": [
 		{
@@ -366,7 +366,7 @@ curl -X POST \
   -H "${TOKEN}" \
   -d '{
 	"name": "demographic_features",
-	"inputDataset": "hdfs:///Projects/'$PROJECT'/sample_data/kyc.csv",
+	"dependencies": ["hdfs:///Projects/'$PROJECT'/sample_data/kyc.csv"],
 	"jobId": '$JOBID',
 	"features": [
 		{
@@ -437,7 +437,7 @@ curl -X POST \
   -H "${TOKEN}" \
   -d '{
 	"name": "trx_graph_edge_list",
-	"inputDataset": "hdfs:///Projects/'$PROJECT'/sample_data/trx.csv",
+	"dependencies": ["hdfs:///Projects/'$PROJECT'/sample_data/trx.csv"],
 	"jobId": '$JOBID',
 	"features": [
 		{
@@ -477,7 +477,7 @@ curl -X POST \
   -H "${TOKEN}" \
   -d '{
 	"name": "trx_graph_summary_features",
-	"inputDataset": "hdfs:///Projects/'$PROJECT'/sample_data/trx.csv",
+	"dependencies": ["hdfs:///Projects/'$PROJECT'/sample_data/trx.csv"],
 	"jobId": '$JOBID',
 	"features": [
 		{
@@ -517,7 +517,7 @@ curl -X POST \
   -H "${TOKEN}" \
   -d '{
 	"name": "trx_features",
-	"inputDataset": "hdfs:///Projects/'$PROJECT'/sample_data/trx.csv",
+	"dependencies": ["hdfs:///Projects/'$PROJECT'/sample_data/trx.csv"],
 	"jobId": '$JOBID',
 	"features": [
 		{
@@ -593,7 +593,7 @@ curl -X POST \
   -H "${TOKEN}" \
   -d '{
 	"name": "trx_summary_features",
-	"inputDataset": "hdfs:///Projects/'$PROJECT'/sample_data/trx.csv",
+	"dependencies": ["hdfs:///Projects/'$PROJECT'/sample_data/trx.csv"],
 	"jobId": '$JOBID',
 	"features": [
 		{
@@ -645,7 +645,7 @@ curl -X POST \
   -H "${TOKEN}" \
   -d '{
 	"name": "hipo_features",
-	"inputDataset": "hdfs:///Projects/'$PROJECT'/sample_data/hipo.csv",
+	"dependencies": ["hdfs:///Projects/'$PROJECT'/sample_data/hipo.csv"],
 	"jobId": '$JOBID',
 	"features": [
 		{
@@ -703,7 +703,7 @@ curl -X POST \
   -H "${TOKEN}" \
   -d '{
 	"name": "alert_features",
-	"inputDataset": "hdfs:///Projects/'$PROJECT'/sample_data/alerts.csv",
+	"dependencies": ["hdfs:///Projects/'$PROJECT'/sample_data/alerts.csv"],
 	"jobId": '$JOBID',
 	"features": [
 		{
@@ -761,7 +761,7 @@ curl -X POST \
   -H "${TOKEN}" \
   -d '{
 	"name": "police_report_features",
-	"inputDataset": "hdfs:///Projects/'$PROJECT'/sample_data/police_reports.csv",
+	"dependencies": ["hdfs:///Projects/'$PROJECT'/sample_data/police_reports.csv"],
 	"jobId": '$JOBID',
 	"features": [
 		{
@@ -801,7 +801,7 @@ curl -X POST \
   -H "${TOKEN}" \
   -d '{
 	"name": "web_logs_features",
-	"inputDataset": "hdfs:///Projects/'$PROJECT'/sample_data/web_logs.csv",
+	"dependencies": ["hdfs:///Projects/'$PROJECT'/sample_data/web_logs.csv"],
 	"jobId": '$JOBID',
 	"features": [
 		{
