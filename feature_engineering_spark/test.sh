@@ -3,8 +3,7 @@
 PORT=$1
 PROJECT=$2
 PROJECTID=$3
-FEATURESTOREID=$4
-JOBID=$5
+
 
 #login
 TOKEN=$(curl -i -X POST \
@@ -16,33 +15,27 @@ TOKEN=$(curl -i -X POST \
   -d 'email=admin%40kth.se&password=admin' | grep "Authorization: Bearer")
 
 curl -X POST \
-  http://localhost:$PORT/hopsworks-api/api/project/$PROJECTID/featurestores/$FEATURESTOREID/featuregroups \
+  http://localhost:$PORT/hopsworks-api/api/project/$PROJECTID/jobs/spark \
   -H 'Cache-Control: no-cache' \
   -H 'Content-Type: application/json' \
-  -H 'Postman-Token: a91e2f27-8088-4b24-bb17-5c5c0f531a94' \
+  -H 'Postman-Token: 887f91b9-c800-4ee2-bd8c-dd9faa27596d' \
   -H "${TOKEN}" \
   -d '{
-	"featuregroupName": "trx_type_lookup",
-	"inputDataset": "hdfs:///Projects/'$PROJECT'/sample_data/trx.csv",
-	"jobId": '4',
-	"features": [
-		{
-			"type": "BIGINT",
-			"name": "id",
-			"description": "The numeric id of the transaction type",
-			"primary": true
-		},
-		{
-			"type": "STRING",
-			"name": "trx_type",
-			"description": "The categorical transaction type",
-			"primary": false
-		}
-		],
-	"description": "lookup table for id to trx_type type, used when converting from numeric to categorical representation and vice verse",
-	"featureCorrelationMatrix": null,
-	"descriptiveStatistics": null,
-	"featuresHistogram": null,
-	"clusterAnalysis": null,
-	"version": 1
+	"type":"sparkJobConfiguration",
+	"amMemory":1024,
+	"amQueue":"default",
+	"amVCores":1,
+	"localResources":[],
+	"appPath":"hdfs:///Projects/'$PROJECT'/Resources/feature_engineering_spark-assembly-0.1.0-SNAPSHOT.jar",
+	"spark.dynamicAllocation.enabled":false,
+	"spark.executor.cores":1,
+	"spark.executor.memory":1024,
+	"mainClass":"limmen.github.com.feature_engineering_spark.Main",
+	"spark.dynamicAllocation.maxExecutors":1500,
+	"spark.dynamicAllocation.minExecutors":1,
+	"spark.executor.instances":1,
+	"spark.dynamicAllocation.initialExecutors":1,
+	"spark.executor.gpus":0,
+	"appName":"alert_type_lookup_job",
+	"args":"--input \"hdfs:///Projects/'$PROJECT'/sample_data/alerts.csv\" --partitions 1 --version 1 --cluster --featuregroup \"alert_type_lookup\""
 }'
