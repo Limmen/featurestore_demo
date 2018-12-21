@@ -33,5 +33,4 @@ $ ./feature_engineering_spark/create_fgs.sh 55354 "hopsworksdemo" 8 3 1
 
 It will create the following feature groups
 
-Inline-style:
 ![model](./model.png "Model")
