@@ -4,6 +4,8 @@ import org.apache.log4j.{ Level, LogManager, Logger }
 import org.apache.spark.sql.SparkSession
 import java.sql.Timestamp
 import io.hops.util.Hops
+import scala.collection.JavaConversions._
+import collection.JavaConverters._
 
 /**
  * Contains logic for computing the PoliceReportFeatures featuregroup
@@ -31,8 +33,11 @@ object PoliceReportFeatures {
    * @param version version of the featuregroup
    * @param partitions number of spark partitions to parallelize the compute on
    * @param logger spark logger
+   * @param create boolean flag whether to create new featuregroup or insert into an existing ones
+   * @param jobId the id of the hopsworks job
    */
-  def computeFeatures(spark: SparkSession, input: String, featuregroupName: String, version: Int, partitions: Int, log: Logger): Unit = {
+  def computeFeatures(spark: SparkSession, input: String, featuregroupName: String,
+    version: Int, partitions: Int, log: Logger, create: Boolean, jobId: Int): Unit = {
     log.info(s"Running computeFeatures for featuregroup: ${featuregroupName}")
     val rawDf = spark.read.format("csv").option("header", "true").option("inferSchema", "true").load(input).repartition(partitions)
     log.info("Read raw dataframe")
@@ -45,12 +50,30 @@ object PoliceReportFeatures {
       val reportId = report.report_id
       PoliceReportFeature(custId, reportDate, reportId)
     })
-    log.info("Converted dataset to numeric, feature engineering complete")
-    log.info(parsedDs.show(5))
-    log.info("Schema: \n" + parsedDs.printSchema)
     val featurestore = Hops.getProjectFeaturestore
-    log.info(s"Inserting into featuregroup $featuregroupName version $version in featurestore $featurestore")
-    Hops.insertIntoFeaturegroup(parsedDs.toDF, spark, featuregroupName, featurestore, version, "overwrite")
-    log.info(s"Insertion into featuregroup $featuregroupName complete")
+    val descriptiveStats = true
+    val featureCorr = true
+    val featureHistograms = true
+    val clusterAnalysis = true
+    val statColumns = List[String]().asJava
+    val numBins = 20
+    val corrMethod = "pearson"
+    val numClusters = 5
+    val description = "Features on customers reported to the police"
+    val primaryKey = "cust_id"
+    val dependencies = List[String](input).asJava
+    if (create) {
+      log.info(s"Creating featuregroup $featuregroupName version $version in featurestore $featurestore")
+      Hops.createFeaturegroup(spark, parsedDs.toDF, featuregroupName, featurestore, version, description,
+        jobId, dependencies, primaryKey, descriptiveStats, featureCorr, featureHistograms, clusterAnalysis,
+        statColumns, numBins, corrMethod, numClusters)
+      log.info(s"Creation of featuregroup $featuregroupName complete")
+    } else {
+      log.info(s"Inserting into featuregroup $featuregroupName version $version in featurestore $featurestore")
+      Hops.insertIntoFeaturegroup(spark, parsedDs.toDF, featuregroupName, featurestore, version, "overwrite",
+        descriptiveStats, featureCorr, featureHistograms, clusterAnalysis, statColumns, numBins, corrMethod,
+        numClusters)
+      log.info(s"Insertion into featuregroup $featuregroupName complete")
+    }
   }
 }

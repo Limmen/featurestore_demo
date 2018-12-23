@@ -5,6 +5,8 @@ import org.apache.spark.sql.SparkSession
 import java.sql.Timestamp
 import io.hops.util.Hops
 import org.apache.spark.sql.Row
+import scala.collection.JavaConversions._
+import collection.JavaConverters._
 
 /**
  * Contains logic for computing the alert_features featuregroup
@@ -38,27 +40,38 @@ object AlertFeatures {
    * @param version version of the featuregroup
    * @param partitions number of spark partitions to parallelize the compute on
    * @param logger spark logger
+   * @param create boolean flag whether to create new featuregroup or insert into an existing ones
+   * @param jobId the id of the hopsworks job
+   * @param alertTypeLookup optional pre-computed map with alert types categorical to numeric encoding
    */
-  def computeFeatures(spark: SparkSession, input: String, featuregroupName: String, version: Int, partitions: Int, log: Logger): Unit = {
+  def computeFeatures(spark: SparkSession, input: String, featuregroupName: String, version: Int,
+    partitions: Int, log: Logger, create: Boolean, jobId: Int, alertTypeLookup: Map[String, Long] = null,
+    ruleNameLookup: Map[String, Long] = null): Unit = {
     log.info(s"Running computeFeatures for featuregroup: ${featuregroupName}")
     val rawDf = spark.read.format("csv").option("header", "true").option("inferSchema", "true").load(input).repartition(partitions)
-    log.info("Read raw dataframe")
     import spark.implicits._
     val rawDs = rawDf.as[RawAlert]
-    log.info("Parsed dataframe to dataset")
     val featurestore = Hops.getProjectFeaturestore
-    val alertTypeLookupDf = Hops.getFeaturegroup(spark, "alert_type_lookup", featurestore, 1)
-    log.info(alertTypeLookupDf.show(5))
-    val alertTypeLookupList: Array[Row] = alertTypeLookupDf.collect
-    val alertTypeLookupMap = alertTypeLookupList.map((row: Row) => {
-      row.getAs[String]("alert_type") -> row.getAs[Long]("id")
-    }).toMap
-    val ruleNameLookupDf = Hops.getFeaturegroup(spark, "rule_name_lookup", featurestore, 1)
-    log.info(ruleNameLookupDf.show(5))
-    val ruleNameLookupList: Array[Row] = ruleNameLookupDf.collect
-    val ruleNameLookupMap = ruleNameLookupList.map((row: Row) => {
-      row.getAs[String]("rule_name") -> row.getAs[Long]("id")
-    }).toMap
+    var alertTypeLookupMap: Map[String, Long] = null
+    if (alertTypeLookup == null) {
+      val alertTypeLookupDf = Hops.getFeaturegroup(spark, "alert_type_lookup", featurestore, 1)
+      val alertTypeLookupList: Array[Row] = alertTypeLookupDf.collect
+      alertTypeLookupMap = alertTypeLookupList.map((row: Row) => {
+        row.getAs[String]("alert_type") -> row.getAs[Long]("id")
+      }).toMap
+    } else {
+      alertTypeLookupMap = alertTypeLookup
+    }
+    var ruleNameLookupMap: Map[String, Long] = null
+    if (ruleNameLookup == null) {
+      val ruleNameLookupDf = Hops.getFeaturegroup(spark, "rule_name_lookup", featurestore, 1)
+      val ruleNameLookupList: Array[Row] = ruleNameLookupDf.collect
+      ruleNameLookupMap = ruleNameLookupList.map((row: Row) => {
+        row.getAs[String]("rule_name") -> row.getAs[Long]("id")
+      }).toMap
+    } else {
+      ruleNameLookupMap = ruleNameLookup
+    }
     val parsedDs = rawDs.map((alert: RawAlert) => {
       val alertDate = new Timestamp(formatter.parse(alert.alert_date).getTime)
       val alertId = alert.alert_id
@@ -68,11 +81,29 @@ object AlertFeatures {
       val trxId = alert.trx_id
       AlertFeature(alertDate, alertId, alertScore, alertType, ruleName, trxId)
     })
-    log.info("Converted dataset to numeric, feature engineering complete")
-    log.info(parsedDs.show(5))
-    log.info("Schema: \n" + parsedDs.printSchema)
-    log.info(s"Inserting into featuregroup $featuregroupName version $version in featurestore $featurestore")
-    Hops.insertIntoFeaturegroup(parsedDs.toDF, spark, featuregroupName, featurestore, version, "overwrite")
-    log.info(s"Insertion into featuregroup $featuregroupName complete")
+    val descriptiveStats = true
+    val featureCorr = true
+    val featureHistograms = true
+    val clusterAnalysis = true
+    val statColumns = List[String]().asJava
+    val dependencies = List[String](input).asJava
+    val numBins = 20
+    val corrMethod = "pearson"
+    val numClusters = 5
+    val description = "Features from transaction alerts"
+    val primaryKey = "alert_id"
+    if (create) {
+      log.info(s"Creating featuregroup $featuregroupName version $version in featurestore $featurestore")
+      Hops.createFeaturegroup(spark, parsedDs.toDF, featuregroupName, featurestore, version, description,
+        jobId, dependencies, primaryKey, descriptiveStats, featureCorr, featureHistograms, clusterAnalysis,
+        statColumns, numBins, corrMethod, numClusters)
+      log.info(s"Creation of featuregroup $featuregroupName complete")
+    } else {
+      log.info(s"Inserting into featuregroup $featuregroupName version $version in featurestore $featurestore")
+      Hops.insertIntoFeaturegroup(spark, parsedDs.toDF, featuregroupName, featurestore, version, "overwrite",
+        descriptiveStats, featureCorr, featureHistograms, clusterAnalysis, statColumns, numBins, corrMethod,
+        numClusters)
+      log.info(s"Insertion into featuregroup $featuregroupName complete")
+    }
   }
 }

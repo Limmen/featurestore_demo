@@ -5,6 +5,9 @@ import org.apache.spark.sql.SparkSession
 import org.apache.spark.sql.functions.monotonically_increasing_id
 import io.hops.util.Hops
 import org.apache.spark.sql.Row
+import scala.collection.JavaConversions._
+import collection.JavaConverters._
+import org.apache.spark.sql.Row
 
 /**
  * Contains logic for computing the pep_lookup featuregroup
@@ -20,19 +23,53 @@ object PepLookup {
    * @param version version of the featuregroup
    * @param partitions number of spark partitions to parallelize the compute on
    * @param logger spark logger
+   * @param create boolean flag whether to create new featuregroup or insert into an existing ones
+   * @param jobId the id of the hopsworks job
+   * @param keepInMemory if true the lookup map is kept in memory and not serialized to Hive
    */
-  def computeFeatures(spark: SparkSession, input: String, featuregroupName: String, version: Int, partitions: Int, log: Logger): Unit = {
+  def computeFeatures(spark: SparkSession, input: String, featuregroupName: String,
+    version: Int, partitions: Int, log: Logger, create: Boolean, jobId: Int, keepInMemory: Boolean = false): Map[Boolean, Long] = {
     log.info(s"Running computeFeatures for featuregroup: ${featuregroupName}")
     val rawDf = spark.read.format("csv").option("header", "true").load(input).repartition(partitions)
     import spark.implicits._
     val peps = rawDf.select("pep").distinct
     val pepsWithIndex = peps.withColumn("id", monotonically_increasing_id())
-    log.info("Extracted peps and mapped to ids:")
-    log.info(pepsWithIndex.show(5))
-    log.info("Schema: \n" + pepsWithIndex.printSchema)
+    if (keepInMemory) {
+      val pepLookupList: Array[Row] = pepsWithIndex.collect
+      val pepLookupMap = pepLookupList.map((row: Row) => {
+        val pep = row.getAs[String]("pep")
+        pep match {
+          case "True" => true -> row.getAs[Long]("id")
+          case "False" => false -> row.getAs[Long]("id")
+        }
+      }).toMap
+      return pepLookupMap
+    }
     val featurestore = Hops.getProjectFeaturestore
-    log.info(s"Inserting into featuregroup $featuregroupName version $version in featurestore $featurestore")
-    Hops.insertIntoFeaturegroup(pepsWithIndex, spark, featuregroupName, featurestore, version, "overwrite")
-    log.info(s"Insertion into featuregroup $featuregroupName complete")
+    val descriptiveStats = true
+    val featureCorr = false
+    val featureHistograms = true
+    val clusterAnalysis = false
+    val statColumns = List[String]().asJava
+    val numBins = 20
+    val corrMethod = "pearson"
+    val numClusters = 5
+    val description = "lookup table for id to pep type, used when converting from numeric to categrorical representation and vice verse"
+    val primaryKey = "id"
+    val dependencies = List[String](input).asJava
+    if (create) {
+      log.info(s"Creating featuregroup $featuregroupName version $version in featurestore $featurestore")
+      Hops.createFeaturegroup(spark, pepsWithIndex, featuregroupName, featurestore, version, description,
+        jobId, dependencies, primaryKey, descriptiveStats, featureCorr, featureHistograms, clusterAnalysis,
+        statColumns, numBins, corrMethod, numClusters)
+      log.info(s"Creation of featuregroup $featuregroupName complete")
+    } else {
+      log.info(s"Inserting into featuregroup $featuregroupName version $version in featurestore $featurestore")
+      Hops.insertIntoFeaturegroup(spark, pepsWithIndex, featuregroupName, featurestore, version, "overwrite",
+        descriptiveStats, featureCorr, featureHistograms, clusterAnalysis, statColumns, numBins, corrMethod,
+        numClusters)
+      log.info(s"Insertion into featuregroup $featuregroupName complete")
+    }
+    return null
   }
 }

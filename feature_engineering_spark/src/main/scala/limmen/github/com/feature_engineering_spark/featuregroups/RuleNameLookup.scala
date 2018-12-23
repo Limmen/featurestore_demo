@@ -4,6 +4,9 @@ import org.apache.log4j.{ Level, LogManager, Logger }
 import org.apache.spark.sql.SparkSession
 import org.apache.spark.sql.functions.monotonically_increasing_id
 import io.hops.util.Hops
+import scala.collection.JavaConversions._
+import collection.JavaConverters._
+import org.apache.spark.sql.Row
 
 /**
  * Contains logic for computing the rule_name_lookup featuregroup
@@ -19,18 +22,48 @@ object RuleNameLookup {
    * @param version version of the featuregroup
    * @param partitions number of spark partitions to parallelize the compute on
    * @param logger spark logger
+   * @param create boolean flag whether to create new featuregroup or insert into an existing ones
+   * @param jobId the id of the hopsworks job
+   * @param keepInMemory if true the lookup map is kept in memory and not serialized to Hive
    */
-  def computeFeatures(spark: SparkSession, input: String, featuregroupName: String, version: Int, partitions: Int, log: Logger): Unit = {
+  def computeFeatures(spark: SparkSession, input: String, featuregroupName: String,
+    version: Int, partitions: Int, log: Logger, create: Boolean, jobId: Int, keepInMemory: Boolean = false): Map[String, Long] = {
     log.info(s"Running computeFeatures for featuregroup: ${featuregroupName}")
     val rawDf = spark.read.format("csv").option("header", "true").option("inferSchema", "true").load(input).repartition(partitions)
     val ruleNames = rawDf.select("rule_name").distinct
     val ruleNamesWithIndex = ruleNames.withColumn("id", monotonically_increasing_id())
-    log.info("Extracted alert_types and mapped to ids:")
-    log.info(ruleNamesWithIndex.show(5))
-    log.info("Schema: \n" + ruleNamesWithIndex.printSchema)
+    if (keepInMemory) {
+      val ruleNameLookupList: Array[Row] = ruleNamesWithIndex.collect
+      val ruleNameLookupMap = ruleNameLookupList.map((row: Row) => {
+        row.getAs[String]("rule_name") -> row.getAs[Long]("id")
+      }).toMap
+      return ruleNameLookupMap
+    }
     val featurestore = Hops.getProjectFeaturestore
-    log.info(s"Inserting into featuregroup $featuregroupName version $version in featurestore $featurestore")
-    Hops.insertIntoFeaturegroup(ruleNamesWithIndex, spark, featuregroupName, featurestore, version, "overwrite")
-    log.info(s"Insertion into featuregroup $featuregroupName complete")
+    val descriptiveStats = true
+    val featureCorr = false
+    val featureHistograms = true
+    val clusterAnalysis = false
+    val statColumns = List[String]().asJava
+    val numBins = 20
+    val corrMethod = "pearson"
+    val numClusters = 5
+    val description = "lookup table for id to rule_name of an alert, used when converting from numeric to categorical representation and vice verse"
+    val primaryKey = "id"
+    val dependencies = List[String](input).asJava
+    if (create) {
+      log.info(s"Creating featuregroup $featuregroupName version $version in featurestore $featurestore")
+      Hops.createFeaturegroup(spark, ruleNamesWithIndex, featuregroupName, featurestore, version, description,
+        jobId, dependencies, primaryKey, descriptiveStats, featureCorr, featureHistograms, clusterAnalysis,
+        statColumns, numBins, corrMethod, numClusters)
+      log.info(s"Creation of featuregroup $featuregroupName complete")
+    } else {
+      log.info(s"Inserting into featuregroup $featuregroupName version $version in featurestore $featurestore")
+      Hops.insertIntoFeaturegroup(spark, ruleNamesWithIndex, featuregroupName, featurestore, version, "overwrite",
+        descriptiveStats, featureCorr, featureHistograms, clusterAnalysis, statColumns, numBins, corrMethod,
+        numClusters)
+      log.info(s"Insertion into featuregroup $featuregroupName complete")
+    }
+    return null
   }
 }

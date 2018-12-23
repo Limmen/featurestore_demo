@@ -4,6 +4,9 @@ import org.apache.log4j.{ Level, LogManager, Logger }
 import org.apache.spark.sql.SparkSession
 import org.apache.spark.sql.functions.monotonically_increasing_id
 import io.hops.util.Hops
+import scala.collection.JavaConversions._
+import collection.JavaConverters._
+import org.apache.spark.sql.Row
 
 /**
  * Contains logic for computing the country_lookup featuregroup
@@ -19,18 +22,48 @@ object CountryLookup {
    * @param version version of the featuregroup
    * @param partitions number of spark partitions to parallelize the compute on
    * @param logger spark logger
+   * @param create boolean flag whether to create new featuregroup or insert into an existing ones
+   * @param jobId the id of the hopsworks job
+   * @param keepInMemory if true the lookup map is kept in memory and not serialized to Hive
    */
-  def computeFeatures(spark: SparkSession, input: String, featuregroupName: String, version: Int, partitions: Int, log: Logger): Unit = {
+  def computeFeatures(spark: SparkSession, input: String, featuregroupName: String,
+    version: Int, partitions: Int, log: Logger, create: Boolean, jobId: Int, keepInMemory: Boolean = false): Map[String, Long] = {
     log.info(s"Running computeFeatures for featuregroup: ${featuregroupName}")
     val rawDf = spark.read.format("csv").option("header", "true").option("inferSchema", "true").load(input).repartition(partitions)
     val trxCountries = rawDf.select("trx_country").distinct
     val trxCountriesWithIndex = trxCountries.withColumn("id", monotonically_increasing_id())
-    log.info("Extracted trx_countries and mapped to ids:")
-    log.info(trxCountriesWithIndex.show(5))
-    log.info("Schema: \n" + trxCountriesWithIndex.printSchema)
+    if (keepInMemory) {
+      val countryLookupList: Array[Row] = trxCountriesWithIndex.collect
+      val countryLookupMap = countryLookupList.map((row: Row) => {
+        row.getAs[String]("trx_country") -> row.getAs[Long]("id")
+      }).toMap
+      return countryLookupMap
+    }
     val featurestore = Hops.getProjectFeaturestore
-    log.info(s"Inserting into featuregroup $featuregroupName version $version in featurestore $featurestore")
-    Hops.insertIntoFeaturegroup(trxCountriesWithIndex, spark, featuregroupName, featurestore, version, "overwrite")
-    log.info(s"Insertion into featuregroup $featuregroupName complete")
+    val descriptiveStats = true
+    val featureCorr = false
+    val featureHistograms = true
+    val clusterAnalysis = false
+    val statColumns = List[String]().asJava
+    val numBins = 20
+    val corrMethod = "pearson"
+    val numClusters = 5
+    val description = "lookup table for id to country, used when converting from numeric to categorical representation and vice verse"
+    val primaryKey = "id"
+    val dependencies = List[String](input).asJava
+    if (create) {
+      log.info(s"Creating featuregroup $featuregroupName version $version in featurestore $featurestore")
+      Hops.createFeaturegroup(spark, trxCountriesWithIndex, featuregroupName, featurestore, version, description,
+        jobId, dependencies, primaryKey, descriptiveStats, featureCorr, featureHistograms, clusterAnalysis,
+        statColumns, numBins, corrMethod, numClusters)
+      log.info(s"Creation of featuregroup $featuregroupName complete")
+    } else {
+      log.info(s"Inserting into featuregroup $featuregroupName version $version in featurestore $featurestore")
+      Hops.insertIntoFeaturegroup(spark, trxCountriesWithIndex, featuregroupName, featurestore, version, "overwrite",
+        descriptiveStats, featureCorr, featureHistograms, clusterAnalysis, statColumns, numBins, corrMethod,
+        numClusters)
+      log.info(s"Insertion into featuregroup $featuregroupName complete")
+    }
+    return null
   }
 }

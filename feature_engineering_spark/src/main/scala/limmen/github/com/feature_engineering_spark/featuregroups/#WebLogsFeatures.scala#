@@ -1,4 +1,4 @@
-package limmen.github.com.feature_engineering_spark.featuregroup
+package limmen.github.com.featurestore_demo.featuregroup
 
 import org.apache.log4j.{ Level, LogManager, Logger }
 import org.apache.spark.sql.SparkSession
